@@ -44,6 +44,8 @@ public class UserInterface {
 
 
     public UserInterface() {
+        //important to init before rendering shapes
+        Rect.initShapeRenderer();
         this.loadInterface();
     }
 

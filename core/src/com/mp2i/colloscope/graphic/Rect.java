@@ -9,31 +9,28 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Rect {
     public Vector2 position;
     public Vector2 size;
-    ShapeRenderer shapeRenderer;
+    private static ShapeRenderer shapeRenderer;
 
-    private void initShapeRenderer() {
+    public static void initShapeRenderer() {
         shapeRenderer = new ShapeRenderer();
     }
 
     public Rect(float x, float y, float width, float height) {
         this.position = new Vector2(x, y);
         this.size = new Vector2(width, height);
-        initShapeRenderer();
 
     }
 
     public Rect(Vector2 position, Vector2 size) {
         this.position = position;
         this.size = size;
-        initShapeRenderer();
     }
 
     public Rect() {
         this.position = new Vector2();
         this.size = new Vector2();
-        initShapeRenderer();
-
     }
+
 
     /**
      * draw the rectangle onto a surface
