@@ -15,6 +15,10 @@ public class Rect {
         shapeRenderer = new ShapeRenderer();
     }
 
+    public static void disposeShapeRenderer() {
+        shapeRenderer.dispose();
+    }
+
     public Rect(float x, float y, float width, float height) {
         this.position = new Vector2(x, y);
         this.size = new Vector2(width, height);
@@ -26,10 +30,6 @@ public class Rect {
         this.size = size;
     }
 
-    public Rect() {
-        this.position = new Vector2();
-        this.size = new Vector2();
-    }
 
 
     /**

@@ -55,6 +55,10 @@ public class UserInterface {
     public void resize() {
         this.disposeMembers();
         this.loadInterface();
+
+        //tbh I don't understand why but this prevents the boxes of the texts to break
+        Rect.disposeShapeRenderer();
+        Rect.initShapeRenderer();
     }
 
     /**
@@ -119,7 +123,7 @@ public class UserInterface {
 
     /**
      * Main function called every frame to display the interface
-     * @param batch
+     * @param batch surface to draw things
      */
     public void update(SpriteBatch batch) {
         if (Objects.equals(message, "")) {
