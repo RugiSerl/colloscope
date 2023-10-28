@@ -31,8 +31,7 @@ public class UserInterface {
     Button nextGroup;
     //button (right arrow) to add one from group number
     Button previousGroup;
-    // button to refresh groups
-    Button refresh;
+
     // group number
     int groupNumber = 1;
     //position of the text displaying the group number
@@ -66,7 +65,6 @@ public class UserInterface {
      */
     public void disposeMembers() {
         previousGroup.dispose();
-        refresh.dispose();
         nextGroup.dispose();
         font.dispose();
     }
@@ -85,7 +83,6 @@ public class UserInterface {
 
         previousGroup = new Button("left.png", new Vector2(), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
         nextGroup = new Button("right.png", new Vector2(scale*4, 0), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
-        refresh = new Button("refresh-button.png", new Vector2(), new Vector2(scale * 4, scale * 4), boxColor, Anchor.RIGHT, Anchor.BOTTOM);
     }
 
     /**
@@ -144,13 +141,12 @@ public class UserInterface {
     public void handleInput(SpriteBatch batch) {
         nextGroup.update(batch);
         previousGroup.update(batch);
-        refresh.update(batch);
 
         if (nextGroup.isClicked()) {
             groupNumber += 1;
+            this.refreshRequested = true;
         } else if (previousGroup.isClicked()) {
             groupNumber -= 1;
-        } else if (refresh.isClicked()) {
             this.refreshRequested = true;
         }
 

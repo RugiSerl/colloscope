@@ -1,0 +1,11 @@
+TODO list des trucs à faire
+
+
+-polir l'interface
+-sauvegarder le numéro du groupe
+-affichage des membres du groupe
+
+
+fait:
+-rajouter les colles de français (important)
+-enlever le bouton refresh

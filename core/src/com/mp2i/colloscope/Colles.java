@@ -27,7 +27,28 @@ public class Colles {
 
         }
 
+        System.out.println(cellCodes);
 
+        // Add french colles if needed
+        if (cellCodes.equals("M2-P1")) {
+            this.colles.add(new Colle(
+                    "Mme Gleize",
+                    "Mercredi 14h30",
+                    "F1",
+                    "E 205"
+            ));
+            this.amount++;
+
+        } else if (cellCodes.equals("M9-A3")) {
+            this.colles.add(new Colle(
+                    "Mme Gleize",
+                    "Mercredi 16h00",
+                    "F2",
+                    "E 205"
+            ));
+            this.amount++;
+
+        }
 
 
     }
