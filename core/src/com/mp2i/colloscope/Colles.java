@@ -27,8 +27,6 @@ public class Colles {
 
         }
 
-        System.out.println(cellCodes);
-
         // Add french colles if needed
         if (cellCodes.equals("M2-P1")) {
             this.colles.add(new Colle(

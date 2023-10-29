@@ -21,13 +21,14 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+		System.out.println("begin");
 		batch = new SpriteBatch();
 		userInterface = new UserInterface();
 		camera = new OrthographicCamera();
 		viewport = new ScreenViewport(camera);
 		viewport.apply();
 
-
+		System.out.println("middle");
 		try {
 			excelFileReader.LoadSheet();
 		} catch (IOException e) {
@@ -35,18 +36,17 @@ public class Main extends ApplicationAdapter {
 		}
 
 
-		String[] groupNames = excelFileReader.getGroupNames(4);
-		for (String group : groupNames) {
-			System.out.println(group);
-		}
 
 		this.setColles();
+		System.out.println("end");
+
 
 	}
 
 	public void setColles() {
 		try {
 			this.userInterface.setColles(excelFileReader.getColles(userInterface.getGroupNumber()));
+			this.userInterface.setGroupMembers(excelFileReader.getGroupNames(userInterface.getGroupNumber()));
 
 		} catch (Exception e) {
 			e.printStackTrace();

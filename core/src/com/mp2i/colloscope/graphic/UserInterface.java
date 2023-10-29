@@ -11,6 +11,7 @@ import java.util.Objects;
 public class UserInterface {
 
     private Colles CollesToDisplay;
+    private String groupMembers;
     //Error message to display, leave "" to no error
     String message = "";
     //main font used to display text
@@ -24,9 +25,9 @@ public class UserInterface {
     //color of the box in which text is displayed
     Color boxColor;
     // padding inside that box
-    float boxPadding = 50;
+    float boxPadding;
     //radius of the edges of the box (rounded box)
-    float boxRadius = 10;
+    float boxRadius;
     //button (left arrow) to substract one from group number
     Button nextGroup;
     //button (right arrow) to add one from group number
@@ -73,13 +74,15 @@ public class UserInterface {
      * Load members
      */
     private void loadInterface() {
-        scale = Math.min((float) Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight())  / 15;
+        scale = Math.min((float) Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight())  / 20;
         textSize = (int) scale;
 
         font = text.loadFont("VarelaRound-Regular.ttf", textSize);
         textPosition = new Vector2(0, 0);
 
         boxColor = new Color(0, 0, 0, 0.2f);
+        this.boxPadding = scale / 1.5f;
+        this.boxRadius = scale / 2;
 
         previousGroup = new Button("left.png", new Vector2(), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
         nextGroup = new Button("right.png", new Vector2(scale*4, 0), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
@@ -102,6 +105,16 @@ public class UserInterface {
         this.message = m;
     }
 
+    public void setGroupMembers(String[] members) {
+        this.groupMembers = "";
+        for (String member : members) {
+            this.groupMembers += member + ", ";
+        }
+
+        //remove the two last characters
+        this.groupMembers = this.groupMembers.substring(0, this.groupMembers.length() - 2);
+
+    }
 
     /**
      * @return the current group number selected
@@ -167,15 +180,16 @@ public class UserInterface {
         Vector2 displayposition = new Vector2(textPosition.x, textPosition.y);
 
         for (int i = 0; i < CollesToDisplay.amount; i++) {
-            String txt = String.format("colle le %s\ncolleur: %s\nsalle: %s", CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
 
+            String txt = String.format("colle le %s\ncolleur: %s\nsalle: %s",
+                    CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
+            displayposition.y = (i + 1 - CollesToDisplay.amount/2f) * scale * 5;
             text.drawText(b, font, txt, displayposition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius);
-            displayposition.y += textSize*5;
 
         }
 
 
-        text.drawText(b, font, "groupe n"+groupNumber, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius);
+        text.drawText(b, font, "groupe n"+groupNumber+ " " + groupMembers, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius);
     }
 
     /**

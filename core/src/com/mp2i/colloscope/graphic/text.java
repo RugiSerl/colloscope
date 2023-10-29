@@ -56,7 +56,7 @@ public class text {
      * @param boxPadding padding of this box
      * @param boxRadius corner radius of this box
      */
-    public static void drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius) {
+    public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius) {
         // Calculating text Size
         layout.setText(font, text);
         float textWidth = layout.width;
@@ -71,6 +71,8 @@ public class text {
 
         //very important to remove instance of rect, preventing memory leaks !
         System.gc();
+
+        return rect;
     }
 
 
