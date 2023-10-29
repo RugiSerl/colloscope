@@ -47,6 +47,10 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public void setColles() {
+		//save group number
+		preference.putInteger("groupNumber", userInterface.getGroupNumber());
+		preference.flush();
+
 		try {
 			this.userInterface.setColles(excelFileReader.getColles(userInterface.getGroupNumber()));
 			this.userInterface.setGroupMembers(excelFileReader.getGroupNames(userInterface.getGroupNumber()));
@@ -89,9 +93,7 @@ public class Main extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		//save group number
-		preference.putInteger("groupNumber", userInterface.getGroupNumber());
-		preference.flush();
+
 
 		batch.dispose();
 		userInterface.disposeMembers();
