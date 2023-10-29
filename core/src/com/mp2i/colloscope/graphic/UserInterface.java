@@ -181,9 +181,14 @@ public class UserInterface {
 
         for (int i = 0; i < CollesToDisplay.amount; i++) {
 
-            String txt = String.format("colle le %s\ncolleur: %s\nsalle: %s",
-                    CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
-            displayposition.y = (i + 1 - CollesToDisplay.amount/2f) * scale * 5;
+            String txt = String.format(
+                            "Colle %s\n" +
+                            "matière:  %s\n" +
+                            "Professeur: %s\n" +
+                            "salle: %s",
+                    CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
+
+            displayposition.y = (i + 1 - CollesToDisplay.amount / 2f) * scale * 6;
             text.drawText(b, font, txt, displayposition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius);
 
         }

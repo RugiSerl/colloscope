@@ -30,6 +30,7 @@ public class Colles {
         // Add french colles if needed
         if (cellCodes.equals("M2-P1")) {
             this.colles.add(new Colle(
+                    "Français",
                     "Mme Gleize",
                     "Mercredi 14h30",
                     "F1",
@@ -39,6 +40,7 @@ public class Colles {
 
         } else if (cellCodes.equals("M9-A3")) {
             this.colles.add(new Colle(
+                    "Français",
                     "Mme Gleize",
                     "Mercredi 16h00",
                     "F2",
@@ -47,6 +49,7 @@ public class Colles {
             this.amount++;
 
         }
+
 
 
     }

@@ -128,32 +128,42 @@ public class excelFileReader {
         int offsetX;
         int offsetY;
 
+        String matiere = "";
+
         switch (subject) {
             case 'M':
                 offsetY = 30 + number;
                 offsetX = 7;
+                matiere = "Mathématiques";
                 break;
 
             case 'I':
                 offsetY = 45 + number;
                 offsetX = 7;
+                matiere = "Informatique";
+
                 break;
 
             case 'P':
                 offsetY = 30 + number;
                 offsetX = 15;
+                matiere = "Physique";
+
                 break;
 
             case 'A':
                 offsetY = 41 + number;
                 offsetX = 15;
+                matiere = "Anglais";
+
                 break;
 
             default:
                 throw new RuntimeException("invalid colle code");
         }
         Row row = sheet.getRow(offsetY);
-        return new Colle(row.getCell(offsetX).getStringCellValue(), // nom
+        return new Colle(matiere,
+                row.getCell(offsetX).getStringCellValue(), // nom
                 row.getCell(offsetX + 2).getStringCellValue(), // creneau
                 row.getCell(offsetX + 4).getStringCellValue(), // code (un peu inutile)
                 row.getCell(offsetX + 5).getStringCellValue()); // salle
