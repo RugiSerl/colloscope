@@ -2,6 +2,7 @@ package com.mp2i.colloscope;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,28 +18,30 @@ public class Main extends ApplicationAdapter {
 
 	OrthographicCamera camera;
 	ScreenViewport viewport;
+	// preference object to make group number persistent
+	Preferences preference;
 
 
 	@Override
 	public void create () {
-		System.out.println("begin");
 		batch = new SpriteBatch();
 		userInterface = new UserInterface();
 		camera = new OrthographicCamera();
 		viewport = new ScreenViewport(camera);
 		viewport.apply();
 
-		System.out.println("middle");
 		try {
 			excelFileReader.LoadSheet();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
+		// load saved group number
+		preference = Gdx.app.getPreferences("main");
+		userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
 
 
 		this.setColles();
-		System.out.println("end");
 
 
 	}
@@ -86,7 +89,13 @@ public class Main extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
+		//save group number
+		preference.putInteger("groupNumber", userInterface.getGroupNumber());
+		preference.flush();
+
 		batch.dispose();
 		userInterface.disposeMembers();
+
+
 	}
 }

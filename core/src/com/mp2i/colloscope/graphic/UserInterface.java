@@ -1,6 +1,7 @@
 package com.mp2i.colloscope.graphic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,6 +33,7 @@ public class UserInterface {
     Button nextGroup;
     //button (right arrow) to add one from group number
     Button previousGroup;
+
 
     // group number
     int groupNumber = 1;
@@ -116,6 +118,11 @@ public class UserInterface {
 
     }
 
+    public void setGroupNumber(int group) {
+        this.groupNumber = group;
+
+    }
+
     /**
      * @return the current group number selected
      */
@@ -183,9 +190,9 @@ public class UserInterface {
 
             String txt = String.format(
                             "Colle %s\n" +
-                            "matière:  %s\n" +
+                            "Matière:  %s\n" +
                             "Professeur: %s\n" +
-                            "salle: %s",
+                            "Salle: %s",
                     CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
 
             displayposition.y = (i + 1 - CollesToDisplay.amount / 2f) * scale * 6;
