@@ -34,6 +34,8 @@ public class UserInterface {
     //button (right arrow) to add one from group number
     Button previousGroup;
 
+    myTexture easterEggImg;
+
 
     // group number
     int groupNumber = 1;
@@ -78,6 +80,8 @@ public class UserInterface {
     private void loadInterface() {
         scale = Math.min((float) Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight())  / 20;
         textSize = (int) scale;
+
+        easterEggImg = new myTexture("easter_egg.jpg");
 
         font = text.loadFont("VarelaRound-Regular.ttf", textSize);
         textPosition = new Vector2(0, 0);
@@ -144,6 +148,12 @@ public class UserInterface {
      * @param batch surface to draw things
      */
     public void update(SpriteBatch batch) {
+
+        if (groupNumber == 15) {
+            this.easterEgg(batch);
+        }
+
+
         if (Objects.equals(message, "")) {
             this.displayColles(batch);
             this.handleInput(batch);
@@ -154,6 +164,11 @@ public class UserInterface {
         //textPosition.rotate(0.1f);
 
     }
+
+    public void easterEgg(SpriteBatch batch) {
+        this.easterEggImg.draw(batch, new Rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+    }
+
 
     /**
      * Handle the input of the user
