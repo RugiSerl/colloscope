@@ -98,7 +98,6 @@ public class excelFileReader {
         int numberOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
         int monthNumber = calendar.get(Calendar.MONTH);
         int numberOfTheFirstDayOfTheWeek = numberOfTheMonth - numberOfTheWeek + 1;
-        numberOfTheFirstDayOfTheWeek = 16;
 
             Row dateRow = sheet.getRow(DATE_ROW_OFFSET);
 

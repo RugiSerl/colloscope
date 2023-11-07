@@ -24,7 +24,7 @@ public class text {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
-        parameter.characters += "—€«»ÀàÂâÆæÇçÉéÈèÊêËëÎîÏïÔôŒœÙùÛûÜüŸÿ";
+        parameter.characters += "—€«»ÀàÂâÆæÇçÉéÈèÊêËëÎîÏïÔôŒœÙùÛûÜüŸÿ°";
         parameter.shadowOffsetX = 1;
         parameter.shadowOffsetY = 1;
         parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;

@@ -82,9 +82,10 @@ public class UserInterface {
         font = text.loadFont("VarelaRound-Regular.ttf", textSize);
         textPosition = new Vector2(0, 0);
 
-        boxColor = new Color(0, 0, 0, 0.2f);
+        boxColor = new Color(1.0f, 1.0f, 1.0f, 0.1f);
         this.boxPadding = scale / 1.5f;
         this.boxRadius = scale / 2;
+        this.groupPosition = new Vector2(this.boxPadding*2, this.boxPadding);
 
         previousGroup = new Button("left.png", new Vector2(), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
         nextGroup = new Button("right.png", new Vector2(scale*4, 0), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
@@ -201,7 +202,7 @@ public class UserInterface {
         }
 
 
-        text.drawText(b, font, "groupe n"+groupNumber+ " " + groupMembers, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius);
+        text.drawText(b, font, "groupe n°"+groupNumber+ " " + groupMembers, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius);
     }
 
     /**

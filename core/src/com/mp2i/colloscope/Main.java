@@ -70,7 +70,7 @@ public class Main extends ApplicationAdapter {
 			this.setColles();
 		}
 
-		Gdx.gl.glClearColor(0, 0.3f, 0, 1);
+		Gdx.gl.glClearColor(0.156f, 0.08f, 0.211f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
