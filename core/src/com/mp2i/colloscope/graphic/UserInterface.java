@@ -99,7 +99,7 @@ public class UserInterface {
         this.boxRadius = scale / 2;
         this.groupPosition = new Vector2(this.boxPadding*2, this.boxPadding);
 
-        if (this.settingsWindow != null ) this.settingsWindow = new Window(new Vector2(0, 0), new Vector2(scale*10, scale*10), new Color(0.5f, 0.5f, 0.5f, 1.0f), boxPadding, boxRadius);
+        if (this.settingsWindow != null ) this.settingsWindow = new Window("settings", new Vector2(0, 0), new Vector2(scale*17, scale*15), new Color(0.5f, 0.5f, 0.5f, 1.0f), boxPadding, boxRadius, scale);
 
         previousGroup = new Button("left.png", new Vector2(), new Vector2(scale*4, scale*4), Anchor.LEFT, Anchor.BOTTOM);
         nextGroup = new Button("right.png", new Vector2(scale*4, 0), new Vector2(scale*4, scale*4), Anchor.LEFT, Anchor.BOTTOM);
@@ -176,7 +176,7 @@ public class UserInterface {
         }
         //textPosition.rotate(0.1f);
         if (this.settingsWindow != null) {
-            this.settingsWindow.update(batch);
+            this.settingsWindow.update(batch, font);
             if (this.settingsWindow.hidden) {
                 this.settingsWindow = null;
             }
@@ -202,7 +202,7 @@ public class UserInterface {
 
         if (settings.isClicked()) {
             //create window
-            this.settingsWindow = new Window(new Vector2(0, 0), new Vector2(scale*10, scale*10), new Color(0.5f, 0.5f, 0.5f, 1.0f), boxPadding, boxRadius);
+            this.settingsWindow = new Window("settings", new Vector2(0, 0), new Vector2(scale*17, scale*15), new Color(0.5f, 0.5f, 0.5f, 1.0f), boxPadding, boxRadius, scale);
         }
 
         if (nextGroup.isClicked()) {

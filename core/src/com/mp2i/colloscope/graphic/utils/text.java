@@ -57,6 +57,23 @@ public class text {
      * @param boxRadius corner radius of this box
      */
     public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius) {
+        return drawText(b, font, text, position, horizontalAnchor, verticalAnchor, boxColor, boxPadding, boxRadius, new Rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+    }
+
+    /**
+     * draw the text with additionnal options
+     * @param b surface to draw things
+     * @param font font of the text
+     * @param text text to draw
+     * @param position position of the text
+     * @param horizontalAnchor horizontal origin
+     * @param verticalAnchor vertical origin
+     * @param boxColor color of the box the text is drawn over
+     * @param boxPadding padding of this box
+     * @param boxRadius corner radius of this box
+     * @param containingRect rect in which is drawn the text
+     */
+    public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius, Rect containingRect) {
         // Calculating text Size
         layout.setText(font, text);
         float textWidth = layout.width;
@@ -64,7 +81,7 @@ public class text {
 
         Rect rect = new Rect(position.x, position.y, textWidth, textHeight);
 
-        rect.setToAnchor(rect.position, horizontalAnchor, verticalAnchor);
+        rect.setToAnchor(rect.position, horizontalAnchor, verticalAnchor, containingRect);
 
         drawText(b, font, text, rect.position);
         rect.draw(b, boxColor, boxPadding, boxRadius);

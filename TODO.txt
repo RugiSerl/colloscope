@@ -2,6 +2,8 @@ TODO list des trucs à faire
 
 
 -polir l'interface
+-gérer le cas ou les bouttons sont les uns sur les autres
+-créer la fenêtre de paramètres
 
 
 
