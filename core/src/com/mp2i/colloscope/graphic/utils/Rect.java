@@ -1,10 +1,11 @@
-package com.mp2i.colloscope.graphic;
+package com.mp2i.colloscope.graphic.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mp2i.colloscope.graphic.components.Anchor;
 
 public class Rect {
     public Vector2 position;
@@ -101,31 +102,47 @@ public class Rect {
      * @param position position of the rect
      * @param horizontalAnchor horizontal origin
      * @param verticalAnchor vertical origin
+     * @param containingRect rect in which the rect is set
      */
-    public void setToAnchor(Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor) {
+    public void setToAnchor(Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Rect containingRect) {
+
 
         switch (horizontalAnchor) {
             case LEFT:
+                this.position.x = containingRect.position.x + position.x;
                 break;
             case RIGHT:
-                this.position.x = Gdx.graphics.getWidth() - position.x - this.size.x;
+                this.position.x = containingRect.position.x + containingRect.size.x - position.x - this.size.x;
                 break;
             case CENTER:
-                this.position.x = (float) Gdx.graphics.getWidth() / 2 + position.x - this.size.x / 2;
+                this.position.x = containingRect.position.x + containingRect.size.x/2 + position.x - this.size.x / 2;
                 break;
         }
 
         switch (verticalAnchor) {
             case BOTTOM:
+                this.position.y = containingRect.position.y + position.y;
                 break;
             case TOP:
-                this.position.y = Gdx.graphics.getHeight() - position.y - this.size.y;
+                this.position.y = containingRect.position.y + containingRect.size.y - position.y - this.size.y;
                 break;
             case CENTER:
-                this.position.y = (float) Gdx.graphics.getHeight() / 2 + position.y - this.size.y / 2;
+                this.position.y = containingRect.position.y + containingRect.size.y / 2 + position.y - this.size.y / 2;
                 break;
         }
 
+
+    }
+
+    /**
+     * Set the rect coordinate to match with anchor type, if the rect origin must be from the left, top, bottom, ..
+     * Note: this is the subset of the function with the containing rect above
+     * @param position position of the rect
+     * @param horizontalAnchor horizontal origin
+     * @param verticalAnchor vertical origin
+     */
+    public void setToAnchor(Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor) {
+        this.setToAnchor(position, horizontalAnchor, verticalAnchor, new Rect(new Vector2(0, 0), new Vector2((float) Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight())));
 
     }
 

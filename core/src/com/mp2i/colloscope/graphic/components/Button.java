@@ -1,12 +1,13 @@
-package com.mp2i.colloscope.graphic;
+package com.mp2i.colloscope.graphic.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mp2i.colloscope.graphic.utils.Rect;
+import com.mp2i.colloscope.graphic.utils.Vector2;
 
 public class Button extends Rect {
     private boolean clicked;
-    private final Color color;
     private final Vector2 pos;
     private final Anchor horizontalAnchor;
     private final Anchor verticalAnchor;
@@ -15,12 +16,11 @@ public class Button extends Rect {
 
 
 
-    public Button(String texturePath, Vector2 position, Vector2 size, Color color, Anchor horizontalAnchor, Anchor verticalAnchor) {
+    public Button(String texturePath, Vector2 position, Vector2 size, Anchor horizontalAnchor, Anchor verticalAnchor) {
         super(new Vector2(position.x, position.y), size);
         // have to explicitly make a copy because in this language every fucking thing is a reference
         // debugged for an hour for this
 
-        this.color = color;
         this.pos = position;
         this.horizontalAnchor = horizontalAnchor;
         this.verticalAnchor = verticalAnchor;
@@ -29,22 +29,31 @@ public class Button extends Rect {
 
     }
 
-
-    public void update(SpriteBatch batch) {
-        this.handleInput();
-        super.setToAnchor(this.pos, this.horizontalAnchor, this.verticalAnchor);
+    public void update(SpriteBatch batch, Rect containingRect) {
+        this.handleInput(batch);
+        super.setToAnchor(this.pos, this.horizontalAnchor, this.verticalAnchor, containingRect);
+        if (this.clicked) {
+            super.draw(batch, new Color(1.0f, 1, 1, 0.2f));
+        }
         this.texture.draw(batch, this);
 
     }
 
-    public void handleInput() {
-        this.clicked = false;
-        for (int i = 0; i < 20; i++) { // 20 is max number of touch points
-            if (Gdx.input.justTouched() && super.detectPointCollision(Gdx.input.getX(i), Gdx.graphics.getHeight() - Gdx.input.getY(i))) {
-                this.clicked = true;
-                break;
-            }
-        }
+    /**
+     * Subset of function update above
+     * @param batch
+     */
+    public void update(SpriteBatch batch) {
+        this.update(batch, new Rect(new Vector2(0, 0), new Vector2((float) Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight())));
+
+    }
+
+
+
+    public void handleInput(SpriteBatch batch) {
+        this.clicked = Gdx.input.justTouched() && super.detectPointCollision(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+
+
         /*if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && super.detectPointCollision(Gdx.input.getX(), Gdx.graphics.getHeight() -  Gdx.input.getY())) {
             this.clicked = true;
         }*/

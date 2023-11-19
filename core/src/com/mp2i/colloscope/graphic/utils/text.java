@@ -1,4 +1,4 @@
-package com.mp2i.colloscope.graphic;
+package com.mp2i.colloscope.graphic.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-
+import com.mp2i.colloscope.graphic.components.Anchor;
 
 
 public class text {

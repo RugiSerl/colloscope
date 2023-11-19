@@ -1,11 +1,17 @@
 package com.mp2i.colloscope.graphic;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.Colles;
+import com.mp2i.colloscope.graphic.components.Anchor;
+import com.mp2i.colloscope.graphic.components.Button;
+import com.mp2i.colloscope.graphic.components.Window;
+import com.mp2i.colloscope.graphic.components.myTexture;
+import com.mp2i.colloscope.graphic.utils.Rect;
+import com.mp2i.colloscope.graphic.utils.Vector2;
+import com.mp2i.colloscope.graphic.utils.text;
 
 import java.util.Objects;
 
@@ -33,6 +39,8 @@ public class UserInterface {
     Button nextGroup;
     //button (right arrow) to add one from group number
     Button previousGroup;
+    Button settings;
+    Window settingsWindow;
 
     myTexture easterEggImg;
 
@@ -91,8 +99,11 @@ public class UserInterface {
         this.boxRadius = scale / 2;
         this.groupPosition = new Vector2(this.boxPadding*2, this.boxPadding);
 
-        previousGroup = new Button("left.png", new Vector2(), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
-        nextGroup = new Button("right.png", new Vector2(scale*4, 0), new Vector2(scale*4, scale*4), boxColor, Anchor.LEFT, Anchor.BOTTOM);
+        if (this.settingsWindow != null ) this.settingsWindow = new Window(new Vector2(0, 0), new Vector2(scale*10, scale*10), new Color(0.5f, 0.5f, 0.5f, 1.0f), boxPadding, boxRadius);
+
+        previousGroup = new Button("left.png", new Vector2(), new Vector2(scale*4, scale*4), Anchor.LEFT, Anchor.BOTTOM);
+        nextGroup = new Button("right.png", new Vector2(scale*4, 0), new Vector2(scale*4, scale*4), Anchor.LEFT, Anchor.BOTTOM);
+        settings = new Button("settings.png", new Vector2(), new Vector2(scale*4, scale*4), Anchor.RIGHT, Anchor.TOP);
     }
 
     /**
@@ -149,6 +160,8 @@ public class UserInterface {
      */
     public void update(SpriteBatch batch) {
 
+
+
         if (groupNumber == 15) {
             this.easterEgg(batch);
         }
@@ -162,10 +175,18 @@ public class UserInterface {
             this.displayMessage(batch);
         }
         //textPosition.rotate(0.1f);
+        if (this.settingsWindow != null) {
+            this.settingsWindow.update(batch);
+            if (this.settingsWindow.hidden) {
+                this.settingsWindow = null;
+            }
+        }
+
 
     }
 
     public void easterEgg(SpriteBatch batch) {
+
         this.easterEggImg.draw(batch, new Rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
     }
 
@@ -177,6 +198,12 @@ public class UserInterface {
     public void handleInput(SpriteBatch batch) {
         nextGroup.update(batch);
         previousGroup.update(batch);
+        settings.update(batch);
+
+        if (settings.isClicked()) {
+            //create window
+            this.settingsWindow = new Window(new Vector2(0, 0), new Vector2(scale*10, scale*10), new Color(0.5f, 0.5f, 0.5f, 1.0f), boxPadding, boxRadius);
+        }
 
         if (nextGroup.isClicked()) {
             groupNumber += 1;
@@ -185,7 +212,6 @@ public class UserInterface {
             groupNumber -= 1;
             this.refreshRequested = true;
         }
-
 
         if (groupNumber > 16) {
             groupNumber = 1;

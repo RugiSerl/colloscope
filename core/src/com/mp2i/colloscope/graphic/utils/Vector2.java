@@ -1,6 +1,4 @@
-package com.mp2i.colloscope.graphic;
-
-import com.badlogic.gdx.Gdx;
+package com.mp2i.colloscope.graphic.utils;
 
 public class Vector2 {
     public float x,y;

@@ -1,4 +1,4 @@
-package com.mp2i.colloscope.graphic;
+package com.mp2i.colloscope.graphic.components;
 
 /**
  * Object used to describe the origin of a point for instance, in order to later calculate its true position on screen.
