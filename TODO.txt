@@ -1,13 +1,18 @@
 TODO list des trucs à faire
 
-
--polir l'interface
+à faire:
+-polir l'interface (elle est immonde)
 -gérer le cas ou les bouttons sont les uns sur les autres
--créer la fenêtre de paramètres
+-afficher la semaine en bas
+-faire un affichage où on swipe pour changer de semaine
+
+peut-être:
+-créer un écran de chargement lorsque le fichier se charge -> besoin de multithreading, pas pour le moment
 
 
 
 fait:
+-créer la fenêtre de paramètres (possibilité d'ajout d'options)
 -rajouter des fenêtres
 -sauvegarder le numéro du groupe
 -fix le bug des boutons

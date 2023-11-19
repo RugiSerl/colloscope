@@ -34,6 +34,11 @@ public class excelFileReader {
             sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object
     }
 
+    public static boolean isLoaded()  {
+        return (sheet != null);
+
+    }
+
     /**
      * Get the names of the members of a group, using their group number
      * @param groupNumber the ID number of the group

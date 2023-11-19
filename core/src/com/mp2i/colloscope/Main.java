@@ -30,23 +30,30 @@ public class Main extends ApplicationAdapter {
 		viewport = new ScreenViewport(camera);
 		viewport.apply();
 
-		try {
-			excelFileReader.LoadSheet();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		userInterface.setMessage("Chargement du fichier excel...");
 
-		// load saved group number
+		//load group number
 		preference = Gdx.app.getPreferences("main");
-		userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
+		//userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
+		userInterface.setGroupNumber(5);
 
-
-		this.setColles();
 
 
 	}
 
+
 	public void setColles() {
+
+		// Check if file is loaded
+		if (!excelFileReader.isLoaded()) {
+			try {
+				excelFileReader.LoadSheet();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+
 		//save group number
 		preference.putInteger("groupNumber", userInterface.getGroupNumber());
 		preference.flush();
@@ -54,7 +61,7 @@ public class Main extends ApplicationAdapter {
 		try {
 			this.userInterface.setColles(excelFileReader.getColles(userInterface.getGroupNumber()));
 			this.userInterface.setGroupMembers(excelFileReader.getGroupNames(userInterface.getGroupNumber()));
-
+			userInterface.setMessage("");
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.userInterface.setMessage("Il semblerait qu'il n'y ait pas de colles prévues cette semaine");
@@ -66,9 +73,7 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-		if (userInterface.needsToBeRefreshed()) {
-			this.setColles();
-		}
+
 
 		Gdx.gl.glClearColor(0.156f, 0.08f, 0.211f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -81,6 +86,11 @@ public class Main extends ApplicationAdapter {
 		batch.enableBlending();
 		userInterface.update(batch);
 		batch.end();
+
+		if (userInterface.needsToBeRefreshed()) {
+			this.setColles();
+		}
+
 	}
 
 	@Override

@@ -83,8 +83,8 @@ public class text {
 
         rect.setToAnchor(rect.position, horizontalAnchor, verticalAnchor, containingRect);
 
-        drawText(b, font, text, rect.position);
         rect.draw(b, boxColor, boxPadding, boxRadius);
+        drawText(b, font, text, rect.position);
 
         //very important to remove instance of rect, preventing memory leaks !
         System.gc();

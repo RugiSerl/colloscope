@@ -18,9 +18,9 @@ public class Window extends Rect {
     String title;
 
 
-    public Window(String title, Vector2 position, Vector2 size, Color color, float boxPadding, float boxRadius, float scale) {
+    public Window(String title, Vector2 position, Vector2 size, float boxPadding, float boxRadius, float scale) {
         super(position, size);
-        this.color = color;
+        this.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
         exitButton = new Button("exit.png", new Vector2(0, 0), new Vector2(4*scale, 4*scale), Anchor.RIGHT, Anchor.TOP);
         this.boxPadding = boxPadding;
         this.boxRadius = boxRadius;
@@ -32,11 +32,8 @@ public class Window extends Rect {
     }
 
     public void update(SpriteBatch batch, BitmapFont titleFont) {
-        // explicitly making copy
-        Rect r = new Rect(super.position, super.size);
-        r.setToAnchor(new Vector2(0, 0), Anchor.CENTER, Anchor.CENTER);
 
-
+        Rect r = this.getRect();
         //there's is a bug with rounded rectangles but I'm just to lazy to correct it
         r.position.y += r.size.y;
         super.draw(batch, this.color, boxPadding, boxRadius);
@@ -52,6 +49,13 @@ public class Window extends Rect {
         text.drawText(batch, titleFont, this.title, new Vector2(), Anchor.LEFT, Anchor.TOP, Color.CLEAR, 0, 0, r);
 
     }
+
+    public Rect getRect() {
+        // explicitly making copy
+        Rect r = new Rect(super.position, super.size);
+        r.setToAnchor(new Vector2(0, 0), Anchor.CENTER, Anchor.CENTER);
+        return r;
+        }
 
 
 
