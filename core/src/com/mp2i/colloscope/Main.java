@@ -34,8 +34,7 @@ public class Main extends ApplicationAdapter {
 
 		//load group number
 		preference = Gdx.app.getPreferences("main");
-		//userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
-		userInterface.setGroupNumber(5);
+		userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
 
 
 

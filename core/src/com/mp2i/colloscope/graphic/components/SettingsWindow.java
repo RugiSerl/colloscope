@@ -16,13 +16,15 @@ public class SettingsWindow extends Window{
     Button nextGroup;
     //button (right arrow) to add one from group number
     Button previousGroup;
+    SettingsComponent groupSetting;
     float scale;
+    BitmapFont font;
 
     public SettingsWindow(int[] currentGroupNumber, float scale, float boxRadius, float boxPadding, boolean[] refreshNeeded) {
         super("Paramètres", new Vector2(0, 0), new Vector2(scale*17, scale*15), boxPadding, boxRadius, scale);
         this.groupNumber = currentGroupNumber;
-        previousGroup = new Button("left.png", new Vector2(scale*4, scale*5), new Vector2(scale*4, scale*4), Anchor.RIGHT, Anchor.TOP);
-        nextGroup = new Button("right.png", new Vector2(0, scale*5), new Vector2(scale*4, scale*4), Anchor.RIGHT, Anchor.TOP);
+        previousGroup = new Button("left.png", new Vector2(scale*5, scale*5), new Vector2(scale*4, scale*4), Anchor.LEFT, Anchor.TOP);
+        nextGroup = new Button("right.png", new Vector2(scale*9, scale*5), new Vector2(scale*4, scale*4), Anchor.LEFT, Anchor.TOP);
         this.refreshNeeded = refreshNeeded;
         this.scale = scale;
 
@@ -33,7 +35,7 @@ public class SettingsWindow extends Window{
     public void update(SpriteBatch batch, BitmapFont titleFont) {
         super.update(batch, titleFont);
 
-        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale*6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale/2, scale/2, super.getRect());
+        text.drawText(batch, titleFont, "groupe "+groupNumber[0], new Vector2(0, scale*6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0), 0, 0, super.getRect());
         nextGroup.update(batch, super.getRect());
         previousGroup.update(batch, super.getRect());
 

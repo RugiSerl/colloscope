@@ -5,6 +5,8 @@ TODO list des trucs à faire
 -gérer le cas ou les bouttons sont les uns sur les autres
 -afficher la semaine en bas
 -faire un affichage où on swipe pour changer de semaine
+-faire un pop up qui détecte les mises à jour
+-créer une classe pour les paramètres
 
 peut-être:
 -créer un écran de chargement lorsque le fichier se charge -> besoin de multithreading, pas pour le moment
