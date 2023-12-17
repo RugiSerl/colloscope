@@ -3,6 +3,7 @@ package com.mp2i.colloscope.graphic.components;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
 
