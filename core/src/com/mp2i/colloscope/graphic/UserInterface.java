@@ -19,8 +19,9 @@ import java.util.Objects;
 
 public class UserInterface {
 
-    private Colles CollesToDisplay;
-    private ColleDisplay colleDisplay;
+    private Colles[] CollesToDisplay = {null, null, null};
+    private final ColleDisplay[] colleDisplay = {null, null, null};
+    private int weekOffset = 0;
     private String groupMembers;
     //Error message to display, leave "" to no error
     String message = "";
@@ -45,12 +46,13 @@ public class UserInterface {
     // exact same thing here
     private boolean[] refreshRequested = {true};
 
+
     myTexture easterEggImg;
 
 
     // group number
     //position of the text displaying the group number
-    Vector2 groupPosition = new Vector2();
+    private Vector2 groupPosition;
     // whether or not the Colles should be updated to the group number
 
 
@@ -99,7 +101,9 @@ public class UserInterface {
         font.setColor(Colors.textColor);
         textPosition = new Vector2(0, 0);
 
-        colleDisplay = new ColleDisplay(font);
+        for (int i = 0; i < colleDisplay.length; i++) {
+            colleDisplay[i] = new ColleDisplay(font);
+        }
 
         boxColor = Colors.boxColor;
         this.boxPadding = scale / 1.5f;
@@ -115,7 +119,7 @@ public class UserInterface {
      * Set the colles to be displayed on the interface
      * @param c Colles object
      */
-    public void setColles(Colles c) {
+    public void setColles(Colles[] c) {
         this.CollesToDisplay = c;
         this.refreshRequested[0] = false;
     }
@@ -142,6 +146,10 @@ public class UserInterface {
     public void setGroupNumber(int group) {
         this.groupNumber[0] = group;
 
+    }
+
+    public int getWeekOffset() {
+        return this.weekOffset;
     }
 
     /**
@@ -173,7 +181,7 @@ public class UserInterface {
 
 
         if (Objects.equals(message, "")) {
-            this.colleDisplay.update(batch, CollesToDisplay, groupNumber[0], groupMembers, groupPosition, scale, boxColor, boxPadding, boxRadius);
+            this.displayColles(batch);
             this.handleInput(batch);
 
         } else {
@@ -186,9 +194,41 @@ public class UserInterface {
                 this.settingsWindow = null;
             }
         }
+    }
 
+    private void displayColles(SpriteBatch batch) {
+        //update all displays
+        for (int i = 0; i<colleDisplay.length; i++) {
+            colleDisplay[i].update(batch, CollesToDisplay[i], groupNumber[0], groupMembers, new Vector2((i- colleDisplay.length/2)*Gdx.graphics.getWidth(), 0), scale, boxColor, boxPadding, boxRadius);
+            //Check if the user has slided
+
+
+        }
+        if (colleDisplay[1].getAction() != ColleDisplay.Action.NONE) {
+
+            this.refreshRequested[0] = true;
+
+            if (colleDisplay[1].getAction() == ColleDisplay.Action.RIGHT) {
+                this.weekOffset--;
+                for (ColleDisplay c: colleDisplay) c.position.x = c.position.x - Gdx.graphics.getWidth()/2;
+
+
+
+            }else if (colleDisplay[1].getAction() == ColleDisplay.Action.LEFT) {
+                this.weekOffset++;
+                for (ColleDisplay c: colleDisplay) c.position.x = Gdx.graphics.getWidth()/2 -c.position.x;
+
+            }
+
+
+
+
+
+        }
 
     }
+
+
     // Pour Gaëtan
     public void easterEgg(SpriteBatch batch) {
 
@@ -220,6 +260,7 @@ public class UserInterface {
      */
     public void displayMessage(SpriteBatch b) {
         text.drawText(b, font, message, textPosition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+
     }
 
 

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mp2i.colloscope.graphic.UserInterface;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 public class Main extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -34,8 +35,7 @@ public class Main extends ApplicationAdapter {
 
 		//load group number
 		preference = Gdx.app.getPreferences("main");
-		//userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
-		userInterface.setGroupNumber(5);
+		userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
 
 
 
@@ -58,13 +58,28 @@ public class Main extends ApplicationAdapter {
 		preference.putInteger("groupNumber", userInterface.getGroupNumber());
 		preference.flush();
 
+
+
 		try {
-			this.userInterface.setColles(excelFileReader.getColles(userInterface.getGroupNumber()));
+
+			Calendar date = Calendar.getInstance();
+			date.add(Calendar.DATE, 7*(this.userInterface.getWeekOffset()-1));
+			System.out.println(this.userInterface.getWeekOffset());
+
+			Colles[] c = {null, null, null};
+			for (int i = 0; i < 3; i ++) {
+				c[i] = excelFileReader.getColles(userInterface.getGroupNumber(), date);
+				date.add(Calendar.DATE, 7);
+			}
+			this.userInterface.setColles(c);
+
+
+
+			//set the group members names
 			this.userInterface.setGroupMembers(excelFileReader.getGroupNames(userInterface.getGroupNumber()));
 			userInterface.setMessage("");
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.userInterface.setMessage("Il semblerait qu'il n'y ait pas de colles prévues cette semaine");
 		}
 	}
 
@@ -89,6 +104,7 @@ public class Main extends ApplicationAdapter {
 
 		if (userInterface.needsToBeRefreshed()) {
 			this.setColles();
+			System.out.println("refresh");
 		}
 
 	}

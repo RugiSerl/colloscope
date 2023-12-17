@@ -93,32 +93,33 @@ public class excelFileReader {
      * @param groupNumber the ID number of the group
      * @return the Colles object containing the colles
      */
-    public static Colles getColles(int groupNumber) throws Exception {
+    public static Colles getColles(int groupNumber, Calendar calendar) {
 
         assert groupNumber >= 1 && groupNumber <= 16;
 
-        Calendar calendar = Calendar.getInstance();
+        int numberOfTheWeek = (calendar.get(Calendar.DAY_OF_WEEK) - 1) % 7; // because of american format, Sunday is 1 (I think ?)
+        calendar.add(Calendar.DATE, -numberOfTheWeek + 1); // get to the first day of the week
 
-        int numberOfTheWeek = (calendar.get(Calendar.DAY_OF_WEEK)-1) % 7; // because of american format, Sunday is 1 (I think ?)
         int numberOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
         int monthNumber = calendar.get(Calendar.MONTH);
-        int numberOfTheFirstDayOfTheWeek = numberOfTheMonth - numberOfTheWeek + 1;
 
-            Row dateRow = sheet.getRow(DATE_ROW_OFFSET);
+        Row dateRow = sheet.getRow(DATE_ROW_OFFSET);
 
-            int dateColumn = 0;
-            for (Cell dateCell : dateRow) {
-                if (dateCell.getCellType() == CellType.NUMERIC) {// make sure we don't run into an error
-                    Date dateCellValue = dateCell.getDateCellValue(); // can throw exception
-                    if (dateCellValue.getMonth()  == monthNumber && dateCellValue.getDate() == numberOfTheFirstDayOfTheWeek) {
-                        Row row = sheet.getRow(DATE_ROW_OFFSET + 1 + groupNumber);
-                        Cell cell = row.getCell(dateColumn);
-                        return new Colles (cell);
-                    }
+
+        int dateColumn = 0;
+        for (Cell dateCell : dateRow) {
+            if (dateCell.getCellType() == CellType.NUMERIC) {// make sure we don't run into an error
+                Date dateCellValue = dateCell.getDateCellValue(); // can throw exception
+
+                if (dateCellValue.getMonth() == monthNumber && dateCellValue.getDate() == numberOfTheMonth) {
+                    Row row = sheet.getRow(DATE_ROW_OFFSET + 1 + groupNumber);
+                    Cell cell = row.getCell(dateColumn);
+                    return new Colles(cell);
                 }
-                dateColumn++;
             }
-        throw new Exception("week not found");
+            dateColumn++;
+        }
+        return null;
     }
 
 

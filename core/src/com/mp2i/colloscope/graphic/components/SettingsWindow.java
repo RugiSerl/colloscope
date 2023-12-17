@@ -35,6 +35,8 @@ public class SettingsWindow extends Window{
         super.update(batch, titleFont);
 
         text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale*6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale/2, scale/2, super.getRect(), 0, Color.CLEAR);
+        text.drawText(batch, titleFont, "Colloscope v5", new Vector2(0, scale), Anchor.LEFT, Anchor.BOTTOM, new Color(0, 0, 0, 0.2f), scale/2, scale/2, super.getRect(), 0, Color.CLEAR);
+
         nextGroup.update(batch, super.getRect());
         previousGroup.update(batch, super.getRect());
 

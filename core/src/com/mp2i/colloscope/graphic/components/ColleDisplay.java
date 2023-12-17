@@ -9,38 +9,47 @@ import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
 
-import java.beans.VetoableChangeListener;
-
 public class ColleDisplay {
+    //differents actions of the user
+    public enum Action {
+        NONE,
+        LEFT,
+        RIGHT,
+    }
+
+    Action action;
 
     BitmapFont font;
-    private Vector2 position;
+    public Vector2 position;
 
     private Vector2 oldPosition;
-    private Vector2 momentum;
+    //dérivée temporelle de la position
+    private Vector2 mouseSpeed;
     private boolean touching;
 
-    private Vector2 startPosition;
+    private final float SlideTrigger = 10;
 
 
 
     public ColleDisplay(BitmapFont font) {
         this.font = font;
         this.position = new Vector2();
-        this.startPosition = new Vector2();
-        this.momentum = new Vector2();
+        this.mouseSpeed = new Vector2();
         this.oldPosition = new Vector2();
         touching = false;
+        this.action = Action.NONE;
     }
 
-    public void update(SpriteBatch b, Colles CollesToDisplay, int groupNumber, String groupMembers, Vector2 groupPosition, float scale, Color boxColor, float boxPadding, float boxRadius) {
+    public void update(SpriteBatch b, Colles CollesToDisplay, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
         handleInput();
-        render(b, CollesToDisplay, groupNumber, groupMembers, groupPosition, scale, boxColor, boxPadding, boxRadius);
+        render(b, CollesToDisplay, groupNumber, groupMembers, offset, scale, boxColor, boxPadding, boxRadius);
     }
 
 
     public void handleInput() {
-        Vector2 currentPosition =  new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        Vector2 currentPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+
+        action = Action.NONE;
 
         if (Gdx.input.isTouched()) {
 
@@ -49,26 +58,60 @@ public class ColleDisplay {
                 oldPosition = currentPosition;
             }
 
+            this.mouseSpeed.x = (oldPosition.x - currentPosition.x);
 
-            this.momentum.x = oldPosition.x - currentPosition.x;
 
         } else {
 
-            this.position.x *= 0.5;
+            if (touching) {
+                if (mouseSpeed.x > SlideTrigger) {
+                    this.action = Action.LEFT;
+                    this.mouseSpeed.x = SlideTrigger;
+                } else if (mouseSpeed.x < -SlideTrigger) {
+                    this.action = Action.RIGHT;
+                    this.mouseSpeed.x = -SlideTrigger;
+
+
+
+
+                }
+
+            }
+
+
+            this.position.x *= 0.9;
+            this.mouseSpeed.x *= 0.9f;
+
+
 
         }
 
+        touching = Gdx.input.isTouched();
+        this.position.x -= mouseSpeed.x;
 
-        this.position.x -= momentum.x;
-
-        this.momentum.x *= 0.9f;
 
         oldPosition = currentPosition;
-        touching = Gdx.input.isTouched();
     }
 
-    public void render(SpriteBatch b, Colles CollesToDisplay, int groupNumber, String groupMembers, Vector2 groupPosition, float scale, Color boxColor, float boxPadding, float boxRadius) {
+    public Action getAction() {
+        return this.action;
+    }
 
+    public void render(SpriteBatch b, Colles CollesToDisplay, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
+        if (CollesToDisplay != null) {
+            displayColles(b, CollesToDisplay, groupNumber, groupMembers, offset, scale, boxColor, boxPadding, boxRadius);
+        } else {
+            text.drawText(b, font, "pas de colles trouvées", offset.addCpy(position), Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+
+        }
+
+        text.drawText(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(), Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+
+
+    }
+
+    private void displayColles(SpriteBatch b, Colles CollesToDisplay, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
+        Vector2 renderPosition = offset.addCpy(position);
 
         for (int i = 0; i < CollesToDisplay.amount; i++) {
 
@@ -79,13 +122,12 @@ public class ColleDisplay {
                             "Salle: %s",
                     CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
 
-            this.position.y = (i + 1 - CollesToDisplay.amount / 2f) * scale * 6;
-            text.drawText(b, font, txt, this.position, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+            renderPosition.y = (i + 1 - CollesToDisplay.amount / 2f) * scale * 6;
+            text.drawText(b, font, txt, renderPosition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
 
         }
 
 
-        text.drawText(b, font, "groupe n°" + groupNumber + ": " + groupMembers, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
     }
 
 
