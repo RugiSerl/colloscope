@@ -1,5 +1,7 @@
 package com.mp2i.colloscope.graphic.utils;
 
+import java.beans.VetoableChangeListener;
+
 public class Vector2 {
     public float x,y;
 
@@ -33,5 +35,14 @@ public class Vector2 {
         this.x += x;
         this.y += y;
     }
+
+    public Vector2 addCpy(float x, float y) {
+        return new Vector2(x + this.x, y + this.y);
+    }
+
+    public Vector2 addCpy(Vector2 otherVector) {
+        return new Vector2(otherVector.x + this.x, otherVector.y + this.y);
+    }
+
 
 }

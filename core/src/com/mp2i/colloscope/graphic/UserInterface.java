@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.Colles;
+import com.mp2i.colloscope.graphic.components.ColleDisplay;
 import com.mp2i.colloscope.graphic.components.Colors;
 import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.components.Button;
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class UserInterface {
 
     private Colles CollesToDisplay;
+    private ColleDisplay colleDisplay;
     private String groupMembers;
     //Error message to display, leave "" to no error
     String message = "";
@@ -97,6 +99,8 @@ public class UserInterface {
         font.setColor(Colors.textColor);
         textPosition = new Vector2(0, 0);
 
+        colleDisplay = new ColleDisplay(font);
+
         boxColor = Colors.boxColor;
         this.boxPadding = scale / 1.5f;
         this.boxRadius = scale / 2;
@@ -169,7 +173,7 @@ public class UserInterface {
 
 
         if (Objects.equals(message, "")) {
-            this.displayColles(batch);
+            this.colleDisplay.update(batch, CollesToDisplay, groupNumber[0], groupMembers, groupPosition, scale, boxColor, boxPadding, boxRadius);
             this.handleInput(batch);
 
         } else {
@@ -209,30 +213,6 @@ public class UserInterface {
 
     }
 
-    /**
-     * Draw the Colles context
-     * @param b surface to draw things
-     */
-    public void displayColles(SpriteBatch b) {
-        Vector2 displayposition = new Vector2(textPosition.x, textPosition.y);
-
-        for (int i = 0; i < CollesToDisplay.amount; i++) {
-
-            String txt = String.format(
-                            "Colle %s\n" +
-                            "Matière:  %s\n" +
-                            "Professeur: %s\n" +
-                            "Salle: %s",
-                    CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
-
-            displayposition.y = (i + 1 - CollesToDisplay.amount / 2f) * scale * 6;
-            text.drawText(b, font, txt, displayposition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
-
-        }
-
-
-        text.drawText(b, font, "groupe n°"+groupNumber[0]+ ": " + groupMembers, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
-    }
 
     /**
      * Display a message on screen, generally for errors

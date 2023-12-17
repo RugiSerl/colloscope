@@ -9,6 +9,9 @@ import com.mp2i.colloscope.graphic.utils.Vector2;
 
 public class Button extends Rect {
     private boolean clicked;
+    //used for button animation
+    private float lastClicked;
+    private final float animationDuration = 0.2f;
     private final Vector2 pos;
     private final Anchor horizontalAnchor;
     private final Anchor verticalAnchor;
@@ -26,6 +29,7 @@ public class Button extends Rect {
         this.horizontalAnchor = horizontalAnchor;
         this.verticalAnchor = verticalAnchor;
         this.texture = new myTexture(texturePath);
+        this.lastClicked = -1;
 
 
     }
@@ -33,8 +37,9 @@ public class Button extends Rect {
     public void update(SpriteBatch batch, Rect containingRect) {
         this.handleInput(batch);
         super.setToAnchor(this.pos, this.horizontalAnchor, this.verticalAnchor, containingRect);
-        if (this.clicked) {
-            super.draw(batch, new Color(1.0f, 1, 1, 0.2f));
+        if (this.lastClicked < this.animationDuration && this.lastClicked >=0) {
+            float alpha = (this.animationDuration - this.lastClicked) / this.animationDuration * 0.2f;
+            super.draw(batch, new Color(1.0f, 1, 1, alpha));
         }
         this.texture.draw(batch, this);
 
@@ -54,6 +59,12 @@ public class Button extends Rect {
     public void handleInput(SpriteBatch batch) {
         this.clicked = Gdx.input.justTouched() && super.detectPointCollision(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
 
+        if (this.clicked) {
+            this.lastClicked = 0;
+        } else if (this.lastClicked >= 0) {
+
+            this.lastClicked += Gdx.graphics.getDeltaTime();
+        }
 
         /*if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && super.detectPointCollision(Gdx.input.getX(), Gdx.graphics.getHeight() -  Gdx.input.getY())) {
             this.clicked = true;
