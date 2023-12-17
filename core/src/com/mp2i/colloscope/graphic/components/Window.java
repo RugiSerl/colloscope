@@ -21,7 +21,7 @@ public class Window extends Rect {
 
     public Window(String title, Vector2 position, Vector2 size, float boxPadding, float boxRadius, float scale) {
         super(position, size);
-        this.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+        this.color = Colors.windowColor;
         exitButton = new Button("exit.png", new Vector2(0, 0), new Vector2(4*scale, 4*scale), Anchor.RIGHT, Anchor.TOP);
         this.boxPadding = boxPadding;
         this.boxRadius = boxRadius;
@@ -35,9 +35,9 @@ public class Window extends Rect {
     public void update(SpriteBatch batch, BitmapFont titleFont) {
 
         Rect r = this.getRect();
-        //there's is a bug with rounded rectangles but I'm just to lazy to correct it
+        //there's a bug with rounded rectangles but I'm just to lazy to correct it
         r.position.y += r.size.y;
-        super.draw(batch, this.color, boxPadding, boxRadius);
+        super.draw(batch, this.color, boxPadding, boxRadius,5 ,Colors.boxBorderColor);
         r.position.y -= r.size.y;
 
 
@@ -47,7 +47,7 @@ public class Window extends Rect {
             this.hidden = true;
         }
 
-        text.drawText(batch, titleFont, this.title, new Vector2(), Anchor.LEFT, Anchor.TOP, Color.CLEAR, 0, 0, r);
+        text.drawText(batch, titleFont, this.title, new Vector2(), Anchor.LEFT, Anchor.TOP, Color.CLEAR, 0, 0, r, 0, Color.CLEAR);
 
     }
 

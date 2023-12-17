@@ -18,7 +18,7 @@ public class text {
      * @param size size of the text
      * @return Bitmap-font generated
      */
-    public static BitmapFont loadFont(String fontPath, int size) {
+    public static BitmapFont loadFont(String fontPath, int size, Color shadowColor) {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -28,7 +28,7 @@ public class text {
         parameter.shadowOffsetY = 1;
         parameter.magFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
         parameter.minFilter = com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
-        parameter.shadowColor = new Color(0, 0, 0, 1f);
+        parameter.shadowColor = shadowColor;
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
 
@@ -55,8 +55,22 @@ public class text {
      * @param boxPadding padding of this box
      * @param boxRadius corner radius of this box
      */
-    public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius) {
-        return drawText(b, font, text, position, horizontalAnchor, verticalAnchor, boxColor, boxPadding, boxRadius, new Rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+    public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius, float borderWidth, Color borderColor) {
+        return drawText(b,
+                font,
+                text,
+                position,
+                horizontalAnchor,
+                verticalAnchor,
+                boxColor,
+                boxPadding,
+                boxRadius,
+                new Rect(0,
+                         0,
+                         Gdx.graphics.getWidth(),
+                         Gdx.graphics.getHeight()),
+                borderWidth,
+                borderColor);
     }
 
     /**
@@ -72,7 +86,7 @@ public class text {
      * @param boxRadius corner radius of this box
      * @param containingRect rect in which is drawn the text
      */
-    public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius, Rect containingRect) {
+    public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius, Rect containingRect, float borderWidth, Color borderColor) {
         // Calculating text Size
         layout.setText(font, text);
         float textWidth = layout.width;
@@ -82,7 +96,9 @@ public class text {
 
         rect.setToAnchor(rect.position, horizontalAnchor, verticalAnchor, containingRect);
 
-        rect.draw(b, boxColor, boxPadding, boxRadius);
+
+
+        rect.draw(b, boxColor, boxPadding, boxRadius, borderWidth, borderColor);
         drawText(b, font, text, rect.position);
 
         //very important to remove instance of rect, preventing memory leaks !

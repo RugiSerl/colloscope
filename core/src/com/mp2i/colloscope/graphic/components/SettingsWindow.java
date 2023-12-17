@@ -34,7 +34,7 @@ public class SettingsWindow extends Window{
     public void update(SpriteBatch batch, BitmapFont titleFont) {
         super.update(batch, titleFont);
 
-        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale*6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale/2, scale/2, super.getRect());
+        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale*6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale/2, scale/2, super.getRect(), 0, Color.CLEAR);
         nextGroup.update(batch, super.getRect());
         previousGroup.update(batch, super.getRect());
 

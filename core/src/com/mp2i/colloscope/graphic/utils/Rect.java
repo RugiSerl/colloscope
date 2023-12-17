@@ -87,6 +87,15 @@ public class Rect {
         batch.begin();
     }
 
+    public void draw(SpriteBatch batch, Color color, float padding, float radius, float borderWidth, Color borderColor) {
+        addPadding(borderWidth);
+        draw(batch, borderColor, padding, radius);
+        addPadding(-borderWidth);
+
+        draw(batch, color, padding, radius);
+
+    }
+
     /**
      * Add inner padding to the rect, making the borders farther from its center
      * @param padding length of the border added

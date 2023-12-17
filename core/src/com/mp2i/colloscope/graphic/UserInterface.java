@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.Colles;
+import com.mp2i.colloscope.graphic.components.Colors;
 import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.components.Button;
 import com.mp2i.colloscope.graphic.components.SettingsWindow;
@@ -92,10 +93,11 @@ public class UserInterface {
 
         easterEggImg = new myTexture("easter_egg.jpg");
 
-        font = text.loadFont("VarelaRound-Regular.ttf", textSize);
+        font = text.loadFont("VarelaRound-Regular.ttf", textSize, Colors.shadowColor);
+        font.setColor(Colors.textColor);
         textPosition = new Vector2(0, 0);
 
-        boxColor = new Color(1.0f, 1.0f, 1.0f, 0.1f);
+        boxColor = Colors.boxColor;
         this.boxPadding = scale / 1.5f;
         this.boxRadius = scale / 2;
         this.groupPosition = new Vector2(this.boxPadding*2, this.boxPadding);
@@ -183,7 +185,7 @@ public class UserInterface {
 
 
     }
-
+    // Pour Gaëtan
     public void easterEgg(SpriteBatch batch) {
 
         this.easterEggImg.draw(batch, new Rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
@@ -224,12 +226,12 @@ public class UserInterface {
                     CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).nom, CollesToDisplay.colles.get(i).salle);
 
             displayposition.y = (i + 1 - CollesToDisplay.amount / 2f) * scale * 6;
-            text.drawText(b, font, txt, displayposition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius);
+            text.drawText(b, font, txt, displayposition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
 
         }
 
 
-        text.drawText(b, font, "groupe n°"+groupNumber[0]+ ": " + groupMembers, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius);
+        text.drawText(b, font, "groupe n°"+groupNumber[0]+ ": " + groupMembers, groupPosition, Anchor.LEFT, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
     }
 
     /**
@@ -237,7 +239,7 @@ public class UserInterface {
      * @param b surface to draw things
      */
     public void displayMessage(SpriteBatch b) {
-        text.drawText(b, font, message, textPosition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius);
+        text.drawText(b, font, message, textPosition, Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
     }
 
 
