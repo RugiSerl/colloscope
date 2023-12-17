@@ -75,11 +75,11 @@ public class text {
      */
     public static Rect drawText(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius, Rect containingRect) {
         // Calculating text Size
+        layout.setText(font, text);
+        float textWidth = layout.width;
+        float textHeight = layout.height;
 
-        Vector2 textSize = getTextSize(font, text);
-
-
-        Rect rect = new Rect(position.x, position.y, textSize.x, textSize.y);
+        Rect rect = new Rect(position.x, position.y, textWidth, textHeight);
 
         rect.setToAnchor(rect.position, horizontalAnchor, verticalAnchor, containingRect);
 
@@ -90,11 +90,6 @@ public class text {
         System.gc();
 
         return rect;
-    }
-
-    public static Vector2 getTextSize(BitmapFont font, String text) {
-        layout.setText(font, text);
-        return new Vector2(layout.width, layout.height);
     }
 
 

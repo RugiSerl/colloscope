@@ -20,13 +20,14 @@ public class Vector2 {
         this.y = tempY;
     }
 
-    public Vector2 add(Vector2 otherVector) {
-        return new Vector2(this.x+otherVector.x,this.y+otherVector.y);
-
+    public void add(Vector2 otherVector) {
+        this.x += otherVector.x;
+        this.y += otherVector.y;
     }
 
-    public Vector2 add(float value) {
-        return new Vector2(this.x+value,this.y+value);
+    public void add(float value) {
+        this.x += value;
+        this.y += value;
     }
     public void add(float x, float y) {
         this.x += x;
