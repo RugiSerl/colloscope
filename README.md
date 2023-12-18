@@ -3,7 +3,7 @@ application android/bureau pour visualiser les colles de la semaine.
 Application codée en java en utilisant la librairie Libgdx pour l'affichage (https://libgdx.com/) et Apache POI pour lire les fichiers excel (https://poi.apache.org/)
 
 # Mise en garde :
-je ne suis en aucun cas responsable si vous vous rentrouvez en retard/absent à cause de mon apllication, surtout si elle n'est pas à jour !!
+je ne suis en aucun cas responsable si vous vous rentrouvez en retard/absent à cause de mon aplication, surtout si elle n'est pas à jour !!
 
 
 ### Contribution :
