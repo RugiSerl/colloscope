@@ -105,6 +105,11 @@ public class Rect {
         this.size.add(padding*2);
     }
 
+    public void addPaddingX(float padding) {
+        this.position.add(-padding, 0);
+        this.size.add(padding*2, 0);
+    }
+
     /**
      * Set the rect coordinate to match with anchor type, if the rect origin must be from the left, top, bottom, ..
      * @param position position of the rect
@@ -167,6 +172,16 @@ public class Rect {
      */
     public boolean detectPointCollision(float x, float y) {
         return (x >= this.position.x && x <= this.position.x + this.size.x && y >= this.position.y && y <= this.position.y + this.size.y);
+    }
+
+    public Rect Copy() {
+        return new Rect(
+                this.position.x,
+                this.position.y,
+                this.size.x,
+                this.size.x
+
+        );
     }
 
 }

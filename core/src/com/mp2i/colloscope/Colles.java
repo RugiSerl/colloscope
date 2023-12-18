@@ -3,6 +3,8 @@ package com.mp2i.colloscope;
 import org.apache.poi.ss.usermodel.Cell;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class Colles {
@@ -50,8 +52,15 @@ public class Colles {
 
         }
 
+        Collections.sort(colles, new Comparator<Colle>() {
+            @Override
+            public int compare(Colle c1, Colle c2) {
+                return Integer.compare(c2.ordre, c1.ordre);
+            }
 
-
+        });
 
     }
+
+
 }

@@ -37,11 +37,18 @@ public class Button extends Rect {
     public void update(SpriteBatch batch, Rect containingRect) {
         this.handleInput(batch);
         super.setToAnchor(this.pos, this.horizontalAnchor, this.verticalAnchor, containingRect);
+        Rect temp = super.Copy();
+
         if (this.lastClicked < this.animationDuration && this.lastClicked >=0) {
             float alpha = (this.animationDuration - this.lastClicked) / this.animationDuration * 0.2f;
-            super.draw(batch, new Color(1.0f, 1, 1, alpha));
+            temp.addPadding(alpha*40);
+            temp.draw(batch, new Color(1.0f, 1, 1, alpha));
+
         }
-        this.texture.draw(batch, this);
+
+
+        this.texture.draw(batch, temp);
+
 
     }
 

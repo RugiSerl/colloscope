@@ -2,7 +2,9 @@ package com.mp2i.colloscope.graphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.Colles;
 import com.mp2i.colloscope.graphic.components.ColleDisplay;
@@ -47,7 +49,7 @@ public class UserInterface {
     private boolean[] refreshRequested = {true};
 
 
-    myTexture easterEggImg;
+    Sprite easterEggImg;
 
 
     // group number
@@ -93,9 +95,12 @@ public class UserInterface {
      */
     private void loadInterface() {
         scale = Math.min((float) Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight())  / 20;
-        textSize = (int) scale;
+        textSize = (int) (scale*0.67f);
 
-        easterEggImg = new myTexture("easter_egg.jpg");
+        Texture tex = new myTexture("easter_egg.jpg");
+        easterEggImg = new Sprite(tex);
+        easterEggImg.setColor(1, 1, 1, 0.4f);
+
 
         font = text.loadFont("VarelaRound-Regular.ttf", textSize, Colors.shadowColor);
         font.setColor(Colors.textColor);
@@ -199,24 +204,21 @@ public class UserInterface {
     private void displayColles(SpriteBatch batch) {
         //update all displays
         for (int i = 0; i<colleDisplay.length; i++) {
-            colleDisplay[i].update(batch, CollesToDisplay[i], groupNumber[0], groupMembers, new Vector2((i- colleDisplay.length/2)*Gdx.graphics.getWidth(), 0), scale, boxColor, boxPadding, boxRadius);
-            //Check if the user has slided
-
+            colleDisplay[i].update(batch, CollesToDisplay[i], " "+(i-1+weekOffset),groupNumber[0], groupMembers, new Vector2((i- colleDisplay.length/2)*Gdx.graphics.getWidth(), 0), scale, boxColor, boxPadding, boxRadius);
 
         }
+        // Check if the user has swiped
         if (colleDisplay[1].getAction() != ColleDisplay.Action.NONE) {
 
             this.refreshRequested[0] = true;
 
             if (colleDisplay[1].getAction() == ColleDisplay.Action.RIGHT) {
                 this.weekOffset--;
-                for (ColleDisplay c: colleDisplay) c.position.x = c.position.x - Gdx.graphics.getWidth()/2;
-
-
+                for (ColleDisplay c: colleDisplay) c.position.x = c.position.x - Gdx.graphics.getWidth();
 
             }else if (colleDisplay[1].getAction() == ColleDisplay.Action.LEFT) {
                 this.weekOffset++;
-                for (ColleDisplay c: colleDisplay) c.position.x = Gdx.graphics.getWidth()/2 -c.position.x;
+                for (ColleDisplay c: colleDisplay) c.position.x = c.position.x + Gdx.graphics.getWidth() ;
 
             }
 
@@ -231,8 +233,8 @@ public class UserInterface {
 
     // Pour Gaëtan
     public void easterEgg(SpriteBatch batch) {
-
-        this.easterEggImg.draw(batch, new Rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        easterEggImg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        easterEggImg.draw(batch);
     }
 
 

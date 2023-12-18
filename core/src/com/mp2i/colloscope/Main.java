@@ -64,7 +64,6 @@ public class Main extends ApplicationAdapter {
 
 			Calendar date = Calendar.getInstance();
 			date.add(Calendar.DATE, 7*(this.userInterface.getWeekOffset()-1));
-			System.out.println(this.userInterface.getWeekOffset());
 
 			Colles[] c = {null, null, null};
 			for (int i = 0; i < 3; i ++) {
@@ -104,7 +103,6 @@ public class Main extends ApplicationAdapter {
 
 		if (userInterface.needsToBeRefreshed()) {
 			this.setColles();
-			System.out.println("refresh");
 		}
 
 	}
