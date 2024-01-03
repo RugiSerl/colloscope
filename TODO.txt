@@ -3,8 +3,7 @@ TODO list des trucs à faire
 à faire:
 -polir l'interface (elle est immonde)
 -gérer le cas ou les bouttons sont les uns sur les autres
--afficher la semaine en bas
--faire un affichage où on swipe pour changer de semaine
+-créer un contexte pour mettre à jour l'application
 
 peut-être:
 -créer un écran de chargement lorsque le fichier se charge -> besoin de multithreading, pas pour le moment
@@ -12,6 +11,8 @@ peut-être:
 
 
 fait:
+-faire un affichage où on swipe pour changer de semaine
+-afficher la semaine en bas
 -créer la fenêtre de paramètres (possibilité d'ajout d'options)
 -rajouter des fenêtres
 -sauvegarder le numéro du groupe

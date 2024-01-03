@@ -97,9 +97,7 @@ public class excelFileReader {
 
         assert groupNumber >= 1 && groupNumber <= 16;
 
-        int numberOfTheWeek = (calendar.get(Calendar.DAY_OF_WEEK) - 1) % 7; // because of american format, Sunday is 1 (I think ?)
-        calendar.add(Calendar.DATE, -numberOfTheWeek + 1); // get to the first day of the week
-
+        dateUtils.setToFirstDayOfTheWeek(calendar);
         int numberOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH);
         int monthNumber = calendar.get(Calendar.MONTH);
 

@@ -204,7 +204,7 @@ public class UserInterface {
     private void displayColles(SpriteBatch batch) {
         //update all displays
         for (int i = 0; i<colleDisplay.length; i++) {
-            colleDisplay[i].update(batch, CollesToDisplay[i], " "+(i-1+weekOffset),groupNumber[0], groupMembers, new Vector2((i- colleDisplay.length/2)*Gdx.graphics.getWidth(), 0), scale, boxColor, boxPadding, boxRadius);
+            colleDisplay[i].update(batch, CollesToDisplay[i], (i-1+weekOffset),groupNumber[0], groupMembers, new Vector2((i- colleDisplay.length/2)*Gdx.graphics.getWidth(), 0), scale, boxColor, boxPadding, boxRadius);
 
         }
         // Check if the user has swiped

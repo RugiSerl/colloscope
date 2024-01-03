@@ -5,10 +5,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.Colles;
+import com.mp2i.colloscope.dateUtils;
 import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.utils.Rect;
 import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class ColleDisplay {
     //differents actions of the user
@@ -33,6 +37,7 @@ public class ColleDisplay {
     private myTexture personIcon;
 
     private final float SWIPE_STRIGGER = 7;
+    private final float SWIPE_SPEED = 15;
 
 
 
@@ -49,7 +54,7 @@ public class ColleDisplay {
         this.calendarIcon = new myTexture("calendar.png");
     }
 
-    public void update(SpriteBatch b, Colles CollesToDisplay, String week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
+    public void update(SpriteBatch b, Colles CollesToDisplay, int week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
         handleInput();
         render(b, CollesToDisplay, week, groupNumber, groupMembers, offset, scale, boxColor, boxPadding, boxRadius);
     }
@@ -89,15 +94,17 @@ public class ColleDisplay {
 
             }
 
-            //rapprochement du centre
-            this.position.x *= 0.9f;
-
 
         }
 
 
         //mise à jour de la position
-        if (touching) this.position.x -= mouseSpeed.x;
+        if (touching) {
+            this.position.x -= mouseSpeed.x;
+        } else {
+            //rapprochement du centre
+            this.position.x -= this.position.x*SWIPE_SPEED*Gdx.graphics.getDeltaTime();
+        }
 
         //mise à jour des variables
         oldPosition = currentPosition;
@@ -109,18 +116,46 @@ public class ColleDisplay {
         return this.action;
     }
 
-    public void render(SpriteBatch b, Colles CollesToDisplay, String week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
+    public void render(SpriteBatch b, Colles CollesToDisplay, int week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
         if (CollesToDisplay != null) {
             displayColles(b, CollesToDisplay, groupNumber, groupMembers, offset, scale, boxColor, boxPadding, boxRadius);
         } else {
             text.drawText(b, font, "pas de colles trouvées", offset.addCpy(position), Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
 
         }
-        text.drawText(b, font, "semaine :" + week, new Vector2(offset.addCpy(position).x, scale*0.5f), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+        text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.addCpy(position).x, scale*0.5f), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
         text.drawText(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(0, scale*1.5f), Anchor.CENTER, Anchor.BOTTOM, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
 
+    }
+
+    private String formatWeek(int weekNumber) {
+        Calendar date = Calendar.getInstance();
+        String finalString = "";
+
+        date.add(Calendar.DATE, 7*(weekNumber));
+
+        dateUtils.setToFirstDayOfTheWeek(date);
+        finalString += formatNumber(date.get(Calendar.DAY_OF_MONTH)) + "/" +  formatNumber(date.get(Calendar.MONTH)+1);
+
+        finalString += " au ";
+
+        date.add(Calendar.DATE, 5);
+        finalString += formatNumber(date.get(Calendar.DAY_OF_MONTH)) + "/" +  formatNumber(date.get(Calendar.MONTH)+1);
+
+
+        return finalString;
+    }
+
+    private String formatNumber(int number) {
+        String s = "" + number;
+        if (s.length() < 2) {
+            s = "0" + s;
+        }
+
+        return s;
 
     }
+
 
     /**
      *  afficher le contexte des colles
