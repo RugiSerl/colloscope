@@ -10,7 +10,7 @@ import com.mp2i.colloscope.graphic.utils.text;
 public class DisclaimerWindow extends Window {
 
     private final String warning = "" +
-            "je ne suis pas responsable\n" +
+            "Je ne suis pas responsable\n" +
             "si vous êtes absent/en retard\n" +
             "à cause de mon application.\n" +
             "Faites attention à mettre à\n" +

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
+import com.mp2i.colloscope.metadata;
 
 public class SettingsWindow extends Window {
 
@@ -38,7 +39,7 @@ public class SettingsWindow extends Window {
         super.update(batch, titleFont);
 
         text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale * 6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
-        text.drawText(batch, titleFont, "Colloscope v5", new Vector2(0, scale), Anchor.LEFT, Anchor.BOTTOM, new Color(0, 0, 0, 0.2f), scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
+        text.drawText(batch, titleFont, "Colloscope "+ metadata.COLLOSCOPE_VERSION, new Vector2(0, scale), Anchor.LEFT, Anchor.BOTTOM, new Color(0, 0, 0, 0.2f), scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
 
         nextGroup.update(batch, super.getRect());
         previousGroup.update(batch, super.getRect());

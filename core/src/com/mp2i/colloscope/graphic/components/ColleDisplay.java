@@ -122,7 +122,7 @@ public class ColleDisplay {
             text.drawText(b, font, "pas de colles trouvées", offset.addCpy(position), Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
 
         }
-        text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.addCpy(position).x, scale*0.5f), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+        text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.addCpy(position).x, scale), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
         text.drawText(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(0, scale*1.5f), Anchor.CENTER, Anchor.BOTTOM, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
 
     }

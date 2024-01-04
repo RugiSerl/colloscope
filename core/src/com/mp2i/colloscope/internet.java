@@ -11,9 +11,6 @@ import java.net.URL;
 import java.util.Arrays;
 
 public class internet {
-    // project version
-    // IMPORTANT : update this version every time the project is released on github
-    public final static String VERSION_NAME = "v1.0.0";
 
     public static boolean IsLastVersion() throws Exception {
 
@@ -37,7 +34,7 @@ public class internet {
 
         System.out.println(lastVersion);
 
-        return (lastVersion.equals(VERSION_NAME));
+        return (lastVersion.equals(metadata.APP_VERSION));
 
 
 
