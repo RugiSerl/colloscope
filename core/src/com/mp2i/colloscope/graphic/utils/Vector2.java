@@ -10,6 +10,11 @@ public class Vector2 {
         this.y = y;
     }
 
+    public Vector2(float xy) {
+        this.x = xy;
+        this.y = xy;
+    }
+
     public Vector2() {
         this.x = 0;
         this.y = 0;

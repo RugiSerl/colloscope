@@ -7,7 +7,7 @@ import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
 
-public class SettingsWindow extends Window{
+public class SettingsWindow extends Window {
 
     // here, the array contains 1 ELEMENT, in order to have the value "by adress"
     int[] groupNumber;
@@ -17,13 +17,16 @@ public class SettingsWindow extends Window{
     Button nextGroup;
     //button (right arrow) to add one from group number
     Button previousGroup;
+    public Button refreshNewVersion;
+
     float scale;
 
     public SettingsWindow(int[] currentGroupNumber, float scale, float boxRadius, float boxPadding, boolean[] refreshNeeded) {
-        super("Paramètres", new Vector2(0, 0), new Vector2(scale*17, scale*15), boxPadding, boxRadius, scale);
+        super("Paramètres", new Vector2(0, 0), new Vector2(scale * 17, scale * 15), boxPadding, boxRadius, scale);
         this.groupNumber = currentGroupNumber;
-        previousGroup = new Button("left.png", new Vector2(scale*4, scale*5), new Vector2(scale*4, scale*4), Anchor.RIGHT, Anchor.TOP);
-        nextGroup = new Button("right.png", new Vector2(0, scale*5), new Vector2(scale*4, scale*4), Anchor.RIGHT, Anchor.TOP);
+        previousGroup = new Button("left.png", new Vector2(scale * 3, scale * 5.5f), scale, Anchor.RIGHT, Anchor.TOP);
+        nextGroup = new Button("right.png", new Vector2(0, scale * 5.5f), scale, Anchor.RIGHT, Anchor.TOP);
+        refreshNewVersion = new Button("internet.png", new Vector2(), scale, Anchor.RIGHT, Anchor.BOTTOM);
         this.refreshNeeded = refreshNeeded;
         this.scale = scale;
 
@@ -34,11 +37,12 @@ public class SettingsWindow extends Window{
     public void update(SpriteBatch batch, BitmapFont titleFont) {
         super.update(batch, titleFont);
 
-        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale*6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale/2, scale/2, super.getRect(), 0, Color.CLEAR);
-        text.drawText(batch, titleFont, "Colloscope v5", new Vector2(0, scale), Anchor.LEFT, Anchor.BOTTOM, new Color(0, 0, 0, 0.2f), scale/2, scale/2, super.getRect(), 0, Color.CLEAR);
+        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale * 6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
+        text.drawText(batch, titleFont, "Colloscope v5", new Vector2(0, scale), Anchor.LEFT, Anchor.BOTTOM, new Color(0, 0, 0, 0.2f), scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
 
         nextGroup.update(batch, super.getRect());
         previousGroup.update(batch, super.getRect());
+        refreshNewVersion.update(batch, super.getRect());
 
         if (nextGroup.isClicked()) {
             groupNumber[0] += 1;
@@ -53,7 +57,6 @@ public class SettingsWindow extends Window{
         } else if (groupNumber[0] < 1) {
             groupNumber[0] = 16;
         }
-
 
 
     }

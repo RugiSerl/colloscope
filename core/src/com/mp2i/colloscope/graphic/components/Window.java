@@ -22,7 +22,7 @@ public class Window extends Rect {
     public Window(String title, Vector2 position, Vector2 size, float boxPadding, float boxRadius, float scale) {
         super(position, size);
         this.color = Colors.windowColor;
-        exitButton = new Button("exit.png", new Vector2(0, 0), new Vector2(4*scale, 4*scale), Anchor.RIGHT, Anchor.TOP);
+        exitButton = new Button("exit.png", new Vector2(0, 0), scale, Anchor.RIGHT, Anchor.TOP);
         this.boxPadding = boxPadding;
         this.boxRadius = boxRadius;
         this.hidden = false;

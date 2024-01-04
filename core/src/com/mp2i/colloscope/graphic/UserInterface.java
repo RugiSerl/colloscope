@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.Colles;
 import com.mp2i.colloscope.graphic.components.ColleDisplay;
 import com.mp2i.colloscope.graphic.components.Colors;
+import com.mp2i.colloscope.graphic.components.NetworkInfoWindow;
 import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.components.Button;
 import com.mp2i.colloscope.graphic.components.SettingsWindow;
@@ -16,6 +17,7 @@ import com.mp2i.colloscope.graphic.components.myTexture;
 import com.mp2i.colloscope.graphic.utils.Rect;
 import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
+import com.mp2i.colloscope.internet;
 
 import java.util.Objects;
 
@@ -43,6 +45,7 @@ public class UserInterface {
     float boxRadius;
     Button settings;
     SettingsWindow settingsWindow;
+    NetworkInfoWindow networkInfoWindow;
     // VERY IMPORTANT: here, the array contains 1 ELEMENT, in order to give the value "by adress" to the settingsWindow
     int[] groupNumber = {-1};
     // exact same thing here
@@ -65,7 +68,30 @@ public class UserInterface {
         //important to init before rendering shapes
         Rect.initShapeRenderer();
         this.loadInterface();
+        try {
+            if (!internet.IsLastVersion()) {
+                this.networkInfoWindow = new NetworkInfoWindow("La version n'est pas à jour", boxRadius, boxPadding, scale);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
+
+    private void checkForUpdates() {
+        try {
+            if (!internet.IsLastVersion()) {
+                this.networkInfoWindow = new NetworkInfoWindow("La version n'est pas à jour", boxRadius, boxPadding, scale );
+            } else {
+                this.networkInfoWindow = new NetworkInfoWindow("La version est pas à jour", boxRadius, boxPadding, scale );
+
+            }
+        } catch (Exception e) {
+            this.networkInfoWindow = new NetworkInfoWindow("impossible de vérifier la version", boxRadius, boxPadding, scale );
+        }
+    }
+
 
     /**
      * update the interface with the new windows dimensions
@@ -87,6 +113,7 @@ public class UserInterface {
         font.dispose();
         settings.dispose();
         if (settingsWindow != null) settingsWindow.dispose();
+        if (networkInfoWindow != null) networkInfoWindow.dispose();
 
     }
 
@@ -116,8 +143,11 @@ public class UserInterface {
         this.groupPosition = new Vector2(this.boxPadding*2, this.boxPadding);
 
         if (this.settingsWindow != null ) this.settingsWindow = new SettingsWindow(groupNumber, scale, boxRadius, boxPadding, refreshRequested );
+        if (this.networkInfoWindow != null ) this.networkInfoWindow = new NetworkInfoWindow(this.networkInfoWindow.messageText, boxRadius, boxPadding, scale );
 
-        settings = new Button("settings.png", new Vector2(), new Vector2(scale*4, scale*4), Anchor.RIGHT, Anchor.TOP);
+
+
+        settings = new Button("settings.png", new Vector2(), scale, Anchor.RIGHT, Anchor.TOP);
     }
 
     /**
@@ -180,6 +210,7 @@ public class UserInterface {
 
 
 
+
         if (groupNumber[0] == 15) {
             this.easterEgg(batch);
         }
@@ -195,8 +226,20 @@ public class UserInterface {
         //textPosition.rotate(0.1f);
         if (this.settingsWindow != null) {
             this.settingsWindow.update(batch, font);
+
+            if (this.settingsWindow.refreshNewVersion.isClicked()) {
+                this.checkForUpdates();
+            }
+
             if (this.settingsWindow.hidden) {
                 this.settingsWindow = null;
+            }
+        }
+
+        if (this.networkInfoWindow != null) {
+            this.networkInfoWindow.update(batch, font);
+            if (this.networkInfoWindow.hidden) {
+                this.networkInfoWindow = null;
             }
         }
     }

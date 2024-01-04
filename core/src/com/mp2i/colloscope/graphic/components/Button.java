@@ -20,9 +20,9 @@ public class Button extends Rect {
 
 
 
-    public Button(String texturePath, Vector2 position, Vector2 size, Anchor horizontalAnchor, Anchor verticalAnchor) {
-        super(new Vector2(position.x, position.y), size);
-        // have to explicitly make a copy because in this language every fucking thing is a reference
+    public Button(String texturePath, Vector2 position, float scale, Anchor horizontalAnchor, Anchor verticalAnchor) {
+        super(new Vector2(position.x, position.y), new Vector2(scale*3));
+        // have to explicitly make a copy of the vector because in this language every fucking thing is a reference
         // debugged for an hour for this
 
         this.pos = position;
@@ -41,7 +41,7 @@ public class Button extends Rect {
 
         if (this.lastClicked < this.animationDuration && this.lastClicked >=0) {
             float alpha = (this.animationDuration - this.lastClicked) / this.animationDuration * 0.2f;
-            temp.addPadding(alpha*40);
+            temp.addPadding(alpha*10);
             temp.draw(batch, new Color(1.0f, 1, 1, alpha));
 
         }

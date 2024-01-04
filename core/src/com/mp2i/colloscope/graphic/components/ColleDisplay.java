@@ -12,7 +12,6 @@ import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 public class ColleDisplay {
     //differents actions of the user
@@ -33,7 +32,7 @@ public class ColleDisplay {
     private boolean touching;
 
     private myTexture localisationIcon;
-    private myTexture calendarIcon;
+    private myTexture timeIcon;
     private myTexture personIcon;
 
     private final float SWIPE_STRIGGER = 7;
@@ -51,7 +50,7 @@ public class ColleDisplay {
 
         this.localisationIcon = new myTexture("location.png");
         this.personIcon = new myTexture("person.png");
-        this.calendarIcon = new myTexture("calendar.png");
+        this.timeIcon = new myTexture("time.png");
     }
 
     public void update(SpriteBatch b, Colles CollesToDisplay, int week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
@@ -178,7 +177,7 @@ public class ColleDisplay {
             r.addPaddingX(scale);
             r.draw(b, boxColor, boxPadding, boxRadius, 0, Color.CLEAR);
 
-            this.calendarIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*1.4f), new Vector2(scale*0.75f, scale*0.75f)));
+            this.timeIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*1.4f), new Vector2(scale*0.75f, scale*0.75f)));
             this.localisationIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*2.2f), new Vector2(scale*0.75f, scale*0.75f)));
             this.personIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*3f), new Vector2(scale*0.75f, scale*0.75f)));
 

@@ -7,6 +7,7 @@ import com.mp2i.colloscope.graphic.utils.Rect;
 public class myTexture extends Texture {
     public myTexture(String internalPath) {
         super(internalPath);
+        super.setFilter(TextureFilter.Linear, TextureFilter.Linear);
     }
 
     public void draw(SpriteBatch batch, Rect target) {
