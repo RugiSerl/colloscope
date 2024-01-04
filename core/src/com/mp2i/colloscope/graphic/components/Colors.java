@@ -8,6 +8,8 @@ public class Colors {
     public static final Color shadowColor = new Color(textColor.r, textColor.g, textColor.b, 0.6f);
     public static final Color windowColor = boxColor;
     public static final Color boxBorderColor = new Color(0, 0, 0, 1);
+    public static final Color backgroundColor = new Color(0.6f, 0.7f, 0.7f, 1);
+
 
 
 

@@ -95,8 +95,10 @@ public class text {
         Rect rect = new Rect(position.x, position.y, textWidth, textHeight);
 
         rect.setToAnchor(rect.position, horizontalAnchor, verticalAnchor, containingRect);
-
+        rect.position.y += rect.size.y;
         rect.draw(b, boxColor, boxPadding, boxRadius, borderWidth, borderColor);
+
+
         drawText(b, font, text, rect.position);
 
 

@@ -41,7 +41,7 @@ public class Button extends Rect {
 
         if (this.lastClicked < this.animationDuration && this.lastClicked >=0) {
             float alpha = (this.animationDuration - this.lastClicked) / this.animationDuration * 0.2f;
-            temp.addPadding(alpha*10);
+            temp.addPadding(-alpha*10);
             temp.draw(batch, new Color(1.0f, 1, 1, alpha));
 
         }

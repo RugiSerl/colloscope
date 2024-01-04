@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mp2i.colloscope.Colles;
 import com.mp2i.colloscope.graphic.components.ColleDisplay;
 import com.mp2i.colloscope.graphic.components.Colors;
+import com.mp2i.colloscope.graphic.components.DisclaimerWindow;
 import com.mp2i.colloscope.graphic.components.NetworkInfoWindow;
 import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.components.Button;
@@ -18,6 +19,7 @@ import com.mp2i.colloscope.graphic.utils.Rect;
 import com.mp2i.colloscope.graphic.utils.Vector2;
 import com.mp2i.colloscope.graphic.utils.text;
 import com.mp2i.colloscope.internet;
+import com.mp2i.colloscope.persistent;
 
 import java.util.Objects;
 
@@ -46,6 +48,7 @@ public class UserInterface {
     Button settings;
     SettingsWindow settingsWindow;
     NetworkInfoWindow networkInfoWindow;
+    DisclaimerWindow disclaimerWindow;
     // VERY IMPORTANT: here, the array contains 1 ELEMENT, in order to give the value "by adress" to the settingsWindow
     int[] groupNumber = {-1};
     // exact same thing here
@@ -68,13 +71,24 @@ public class UserInterface {
         //important to init before rendering shapes
         Rect.initShapeRenderer();
         this.loadInterface();
-        try {
-            if (!internet.IsLastVersion()) {
-                this.networkInfoWindow = new NetworkInfoWindow("La version n'est pas à jour", boxRadius, boxPadding, scale);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (persistent.isFirstLaunch()) {
+            disclaimerWindow = new DisclaimerWindow(boxPadding, boxRadius, scale);
+
         }
+
+        if (disclaimerWindow == null) {
+            // Check update at startup
+            try {
+                if (!internet.IsLastVersion()) {
+                    this.networkInfoWindow = new NetworkInfoWindow("La version n'est pas à jour", boxRadius, boxPadding, scale);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
 
 
     }
@@ -144,6 +158,7 @@ public class UserInterface {
 
         if (this.settingsWindow != null ) this.settingsWindow = new SettingsWindow(groupNumber, scale, boxRadius, boxPadding, refreshRequested );
         if (this.networkInfoWindow != null ) this.networkInfoWindow = new NetworkInfoWindow(this.networkInfoWindow.messageText, boxRadius, boxPadding, scale );
+        if (this.disclaimerWindow != null ) disclaimerWindow = new DisclaimerWindow(boxPadding, boxRadius, scale);
 
 
 
@@ -208,22 +223,30 @@ public class UserInterface {
      */
     public void update(SpriteBatch batch) {
 
+        //this prevent everything to be updated if the warning windows is still here
+        if (this.disclaimerWindow == null) {
+            if (groupNumber[0] == 15) {
+                this.easterEgg(batch);
+            }
 
 
+            if (Objects.equals(message, "")) {
+                this.displayColles(batch);
+                this.handleInput(batch);
 
-        if (groupNumber[0] == 15) {
-            this.easterEgg(batch);
+            } else {
+                this.displayMessage(batch);
+            }
         }
 
 
-        if (Objects.equals(message, "")) {
-            this.displayColles(batch);
-            this.handleInput(batch);
 
-        } else {
-            this.displayMessage(batch);
-        }
-        //textPosition.rotate(0.1f);
+        this.updateWindows(batch);
+
+    }
+
+    //update all the windows of the interface
+    private void updateWindows(SpriteBatch batch) {
         if (this.settingsWindow != null) {
             this.settingsWindow.update(batch, font);
 
@@ -240,6 +263,13 @@ public class UserInterface {
             this.networkInfoWindow.update(batch, font);
             if (this.networkInfoWindow.hidden) {
                 this.networkInfoWindow = null;
+            }
+        }
+
+        if (this.disclaimerWindow != null) {
+            this.disclaimerWindow.update(batch, font);
+            if (this.disclaimerWindow.hidden) {
+                this.disclaimerWindow = null;
             }
         }
     }

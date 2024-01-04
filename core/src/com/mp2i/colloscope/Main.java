@@ -6,9 +6,9 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mp2i.colloscope.graphic.UserInterface;
+import com.mp2i.colloscope.graphic.components.Colors;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -25,17 +25,17 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+
+		persistent.init();
+
+
 		batch = new SpriteBatch();
 		userInterface = new UserInterface();
 		camera = new OrthographicCamera();
 		viewport = new ScreenViewport(camera);
 		viewport.apply();
+		userInterface.setGroupNumber(persistent.preference.getInteger("groupNumber", 1));
 
-		userInterface.setMessage("Chargement du fichier excel...");
-
-		//load group number
-		preference = Gdx.app.getPreferences("main");
-		userInterface.setGroupNumber(preference.getInteger("groupNumber", 1));
 
 
 
@@ -56,9 +56,8 @@ public class Main extends ApplicationAdapter {
 
 
 		//save group number
-		preference.putInteger("groupNumber", userInterface.getGroupNumber());
-		preference.flush();
-
+		persistent.preference.putInteger("groupNumber", userInterface.getGroupNumber());
+		persistent.save();
 
 
 		try {
@@ -90,7 +89,7 @@ public class Main extends ApplicationAdapter {
 
 
 
-		Gdx.gl.glClearColor(0.156f, 0.08f, 0.211f, 1.0f);
+		Gdx.gl.glClearColor(Colors.backgroundColor.r, Colors.backgroundColor.g, Colors.backgroundColor.b, Colors.backgroundColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
