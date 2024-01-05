@@ -15,7 +15,7 @@ public class NetworkInfoWindow extends Window {
     private Button github;
 
     public NetworkInfoWindow(String text, float boxPadding, float boxRadius, float scale) {
-        super("information", new Vector2(), new Vector2(scale * 10), boxPadding, boxRadius, scale);
+        super("Information", new Vector2(), new Vector2(scale * 13), boxPadding, boxRadius, scale);
         this.messageText = text;
         this.scale = scale;
         github = new Button("github.png", new Vector2(), scale, Anchor.RIGHT, Anchor.BOTTOM);

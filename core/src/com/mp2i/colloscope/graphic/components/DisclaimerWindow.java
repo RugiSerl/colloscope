@@ -35,7 +35,7 @@ public class DisclaimerWindow extends Window {
     public void update(SpriteBatch batch, BitmapFont font) {
         super.update(batch, font);
 
-        text.drawText(batch, font, warning, new Vector2(), Anchor.CENTER, Anchor.CENTER, Color.CLEAR, scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
+        text.drawText(batch, font, warning, new Vector2(0, -scale*0.5f), Anchor.CENTER, Anchor.CENTER, Color.CLEAR, scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
 
     }
 

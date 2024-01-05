@@ -27,7 +27,7 @@ public class SettingsWindow extends Window {
         this.groupNumber = currentGroupNumber;
         previousGroup = new Button("left.png", new Vector2(scale * 3, scale * 5.5f), scale, Anchor.RIGHT, Anchor.TOP);
         nextGroup = new Button("right.png", new Vector2(0, scale * 5.5f), scale, Anchor.RIGHT, Anchor.TOP);
-        refreshNewVersion = new Button("internet.png", new Vector2(), scale, Anchor.RIGHT, Anchor.BOTTOM);
+        refreshNewVersion = new Button("internet.png", new Vector2(scale * 1.5f, 0), scale, Anchor.RIGHT, Anchor.BOTTOM);
         this.refreshNeeded = refreshNeeded;
         this.scale = scale;
 
@@ -38,8 +38,8 @@ public class SettingsWindow extends Window {
     public void update(SpriteBatch batch, BitmapFont titleFont) {
         super.update(batch, titleFont);
 
-        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(0, scale * 6), Anchor.LEFT, Anchor.TOP, new Color(0, 0, 0, 0.2f), scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
-        text.drawText(batch, titleFont, "Colloscope "+ metadata.COLLOSCOPE_VERSION, new Vector2(0, scale), Anchor.LEFT, Anchor.BOTTOM, new Color(0, 0, 0, 0.2f), scale / 2, scale / 2, super.getRect(), 0, Color.CLEAR);
+        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(scale*2, scale * 6.5f), Anchor.LEFT, Anchor.TOP, Colors.boxColor, scale / 2, scale / 2, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
+        text.drawText(batch, titleFont, "Colloscope "+ metadata.COLLOSCOPE_VERSION, new Vector2(scale*2, scale), Anchor.LEFT, Anchor.BOTTOM, Colors.boxColor, scale / 2, scale / 2, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
 
         nextGroup.update(batch, super.getRect());
         previousGroup.update(batch, super.getRect());

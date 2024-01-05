@@ -6,8 +6,9 @@ Application codée en java en utilisant la librairie Libgdx pour l'affichage (ht
 thème d'icones utilisé : https://www.flaticon.com/packs/essential-set-2
 
 # Mise en garde :
-je ne suis en aucun cas responsable si vous vous rentrouvez en retard/absent à cause de mon application, surtout si elle n'est pas à jour !!
-
+-je ne suis en aucun cas responsable si vous vous rentrouvez en retard/absent à cause de mon application, surtout si elle n'est pas à jour !!
+-il se pourrait que l'application soit bloqué par android, j'ai moi même souvent du mal à l'installer.
+-l'application est uniquement disponible sur android et pc
 
 ### Contribution :
 Vous pouvez contribuer au projet, en signalant des bugs, en proposant des fonctionnalités ou en développant.

@@ -136,7 +136,7 @@ public class UserInterface {
      */
     private void loadInterface() {
         scale = Math.min((float) Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight())  / 20;
-        textSize = (int) (scale*0.67f);
+        textSize = (int) (scale*0.9f);
 
         Texture tex = new myTexture("easter_egg.jpg");
         easterEggImg = new Sprite(tex);

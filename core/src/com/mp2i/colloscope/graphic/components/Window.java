@@ -17,6 +17,7 @@ public class Window extends Rect {
     //radius of the edges of the box (rounded box)
     float boxRadius;
     String title;
+    float scale;
 
 
     public Window(String title, Vector2 position, Vector2 size, float boxPadding, float boxRadius, float scale) {
@@ -27,6 +28,7 @@ public class Window extends Rect {
         this.boxRadius = boxRadius;
         this.hidden = false;
         this.title = title;
+        this.scale = scale;
 
 
 
@@ -37,7 +39,7 @@ public class Window extends Rect {
         Rect r = this.getRect();
         //there's a bug with rounded rectangles but I'm just to lazy to correct it
         r.position.y += r.size.y;
-        super.draw(batch, this.color, boxPadding, boxRadius,5 ,Colors.boxBorderColor);
+        super.draw(batch, this.color, boxPadding, boxRadius,Colors.boxBorderWidth*scale ,Colors.boxBorderColor);
         r.position.y -= r.size.y;
 
 

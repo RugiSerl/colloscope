@@ -119,11 +119,11 @@ public class ColleDisplay {
         if (CollesToDisplay != null) {
             displayColles(b, CollesToDisplay, groupNumber, groupMembers, offset, scale, boxColor, boxPadding, boxRadius);
         } else {
-            text.drawText(b, font, "pas de colles trouvées", offset.addCpy(position), Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+            text.drawText(b, font, "pas de colles trouvées", offset.addCpy(position), Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
 
         }
-        text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.addCpy(position).x, scale), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
-        text.drawText(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(0, scale*1.5f), Anchor.CENTER, Anchor.BOTTOM, boxColor, boxPadding, boxRadius, 0, Colors.boxBorderColor);
+        text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.addCpy(position).x, scale), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
+        text.drawText(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(0, scale*1.5f), Anchor.CENTER, Anchor.BOTTOM, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
 
     }
 
@@ -171,15 +171,15 @@ public class ColleDisplay {
                             "%s",
                     CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).salle, CollesToDisplay.colles.get(i).nom);
 
-            renderPosition.y = (i + 1 - CollesToDisplay.amount / 2f) * scale * 4.5f;
+            renderPosition.y = (i + 0.5f - CollesToDisplay.amount / 2f) * scale * 6.0f;
 
             Rect r = text.drawText(b, font, txt, renderPosition, Anchor.CENTER, Anchor.CENTER, boxColor, 0, boxRadius, 0, Color.CLEAR);
             r.addPaddingX(scale);
-            r.draw(b, boxColor, boxPadding, boxRadius, 0, Color.CLEAR);
+            r.draw(b, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
 
-            this.timeIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*1.4f), new Vector2(scale*0.75f, scale*0.75f)));
-            this.localisationIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*2.2f), new Vector2(scale*0.75f, scale*0.75f)));
-            this.personIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*3f), new Vector2(scale*0.75f, scale*0.75f)));
+            this.timeIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*1.4f*1.3f), new Vector2(scale*0.75f, scale*0.75f)));
+            this.localisationIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*2.2f*1.3f), new Vector2(scale*0.75f, scale*0.75f)));
+            this.personIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*3f*1.3f), new Vector2(scale*0.75f, scale*0.75f)));
 
 
 
