@@ -43,6 +43,22 @@ public class text {
         font.draw(b, text, position.x, position.y);
     }
 
+    public static void drawTextButStretched(SpriteBatch b, BitmapFont font, String text, Vector2 position, Anchor horizontalAnchor, Anchor verticalAnchor, Color boxColor, float boxPadding, float boxRadius, Rect containingRect, float borderWidth, Color borderColor, float maxWidth) {
+        // Calculating text Size
+        layout.setText(font, text);
+        if (layout.width > maxWidth) {
+            float amount = (maxWidth - layout.width)/maxWidth*0.7f ;
+            font.getData().scale(amount);
+            drawText(b, font, text, position, horizontalAnchor, verticalAnchor, boxColor, boxPadding, boxRadius, containingRect, borderWidth, borderColor);
+            font.getData().scale(-amount);
+
+        } else {
+            drawText(b, font, text, position, horizontalAnchor, verticalAnchor, boxColor, boxPadding, boxRadius, containingRect, borderWidth, borderColor);
+        }
+
+
+    }
+
     /**
      * draw the text with additionnal options
      * @param b surface to draw things

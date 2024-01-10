@@ -11,17 +11,18 @@ public class Button extends Rect {
     private boolean clicked;
     //used for button animation
     private float lastClicked;
-    private final float animationDuration = 0.2f;
+    private final float ANIMATION_DURATION = 0.1f;
     private final Vector2 pos;
     private final Anchor horizontalAnchor;
     private final Anchor verticalAnchor;
     private final myTexture texture;
+    private float scale;
 
 
 
 
     public Button(String texturePath, Vector2 position, float scale, Anchor horizontalAnchor, Anchor verticalAnchor) {
-        super(new Vector2(position.x, position.y), new Vector2(scale*3));
+        super(new Vector2(position.x, position.y), new Vector2(scale*2.6f));
         // have to explicitly make a copy of the vector because in this language every fucking thing is a reference
         // debugged for an hour for this
 
@@ -30,6 +31,7 @@ public class Button extends Rect {
         this.verticalAnchor = verticalAnchor;
         this.texture = new myTexture(texturePath);
         this.lastClicked = -1;
+        this.scale = scale;
 
 
     }
@@ -39,8 +41,8 @@ public class Button extends Rect {
         super.setToAnchor(this.pos, this.horizontalAnchor, this.verticalAnchor, containingRect);
         Rect temp = super.Copy();
 
-        if (this.lastClicked < this.animationDuration && this.lastClicked >=0) {
-            float alpha = (this.animationDuration - this.lastClicked) / this.animationDuration * 0.2f;
+        if (this.lastClicked < this.ANIMATION_DURATION && this.lastClicked >=0) {
+            float alpha = (this.ANIMATION_DURATION - this.lastClicked) / this.ANIMATION_DURATION * 0.005f*scale;
             temp.addPadding(-alpha*10);
             temp.draw(batch, new Color(1.0f, 1, 1, alpha));
 

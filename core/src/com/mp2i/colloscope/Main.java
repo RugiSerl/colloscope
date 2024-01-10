@@ -36,6 +36,7 @@ public class Main extends ApplicationAdapter {
 		viewport.apply();
 		userInterface.setGroupNumber(persistent.preference.getInteger("groupNumber", 1));
 
+		this.setColles();
 
 
 
@@ -55,9 +56,7 @@ public class Main extends ApplicationAdapter {
 		}
 
 
-		//save group number
-		persistent.preference.putInteger("groupNumber", userInterface.getGroupNumber());
-		persistent.save();
+
 
 
 		try {
@@ -100,9 +99,11 @@ public class Main extends ApplicationAdapter {
 		batch.enableBlending();
 		userInterface.update(batch);
 		batch.end();
-
 		if (userInterface.needsToBeRefreshed()) {
 			this.setColles();
+			//save group number
+			persistent.preference.putInteger("groupNumber", userInterface.getGroupNumber());
+			persistent.save();
 		}
 
 	}

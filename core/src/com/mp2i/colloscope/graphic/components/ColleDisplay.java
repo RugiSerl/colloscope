@@ -31,9 +31,10 @@ public class ColleDisplay {
     private Vector2 mouseSpeed;
     private boolean touching;
 
-    private myTexture localisationIcon;
-    private myTexture timeIcon;
-    private myTexture personIcon;
+    private final myTexture localisationIcon;
+    private final myTexture timeIcon;
+    private final myTexture personIcon;
+    private myTexture subjectIcon;
 
     private final float SWIPE_STRIGGER = 7;
     private final float SWIPE_SPEED = 15;
@@ -51,6 +52,7 @@ public class ColleDisplay {
         this.localisationIcon = new myTexture("location.png");
         this.personIcon = new myTexture("person.png");
         this.timeIcon = new myTexture("time.png");
+        this.subjectIcon = new myTexture("subject.png");
     }
 
     public void update(SpriteBatch b, Colles CollesToDisplay, int week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
@@ -123,8 +125,7 @@ public class ColleDisplay {
 
         }
         text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.addCpy(position).x, scale), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
-        text.drawText(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(0, scale*1.5f), Anchor.CENTER, Anchor.BOTTOM, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
-
+        text.drawTextButStretched(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(0, scale*1.5f), Anchor.CENTER, Anchor.BOTTOM, boxColor, boxPadding, boxRadius, new Rect(new Vector2(0, 0), new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())),Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor,  Gdx.graphics.getWidth()-2*boxPadding);
     }
 
     private String formatWeek(int weekNumber) {
@@ -171,12 +172,13 @@ public class ColleDisplay {
                             "%s",
                     CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).salle, CollesToDisplay.colles.get(i).nom);
 
-            renderPosition.y = (i + 0.5f - CollesToDisplay.amount / 2f) * scale * 6.0f;
+            renderPosition.y = (i + 0.5f - CollesToDisplay.amount / 2f) * scale * 5.7f;
 
             Rect r = text.drawText(b, font, txt, renderPosition, Anchor.CENTER, Anchor.CENTER, boxColor, 0, boxRadius, 0, Color.CLEAR);
             r.addPaddingX(scale);
             r.draw(b, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
 
+            this.subjectIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*0.6f*1.3f), new Vector2(scale*0.75f, scale*0.75f)));
             this.timeIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*1.4f*1.3f), new Vector2(scale*0.75f, scale*0.75f)));
             this.localisationIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*2.2f*1.3f), new Vector2(scale*0.75f, scale*0.75f)));
             this.personIcon.draw(b, new Rect(new Vector2(r.position.x, r.position.y -scale*3f*1.3f), new Vector2(scale*0.75f, scale*0.75f)));

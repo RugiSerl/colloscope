@@ -32,8 +32,6 @@ public class internet {
         //trim end
         lastVersion = lastVersion.substring(0, lastVersion.indexOf(",")-1);
 
-        System.out.println(lastVersion);
-
         return (lastVersion.equals(metadata.APP_VERSION));
 
 

@@ -1,14 +1,19 @@
 TODO list des trucs à faire
 
 à faire:
--gérer le cas ou les bouttons sont les uns sur les autres
 
 peut-être:
 -créer un écran de chargement lorsque le fichier se charge -> besoin de multithreading, pas pour le moment
+-gérer le cas ou les bouttons sont les uns sur les autres
+-faire un build signé
+-mettre les informations en cache et les recharger à la demande
+
 
 
 
 fait:
+-fix le nom du groupe qui rentre pas
+-rendre l'application plus intuitive
 -polir l'interface (elle est immonde)
 -créer un fenêtre de disclaimer au premier démarrage
 -créer un contexte pour mettre à jour l'application
