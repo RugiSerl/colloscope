@@ -57,6 +57,7 @@ public class ColleDisplay {
 
     public void update(SpriteBatch b, Colles CollesToDisplay, int week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
         handleInput();
+
         render(b, CollesToDisplay, week, groupNumber, groupMembers, offset, scale, boxColor, boxPadding, boxRadius);
     }
 
@@ -64,7 +65,7 @@ public class ColleDisplay {
      * Gérer les actions de l'utilisateur lorsqu'il swipe pour changer de semaine
      */
     public void handleInput() {
-        Vector2 currentPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        Vector2 currentPosition = new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
 
         action = Action.NONE;
 
@@ -76,7 +77,8 @@ public class ColleDisplay {
                 oldPosition = currentPosition;
             }
 
-            this.mouseSpeed.x = (oldPosition.x - currentPosition.x);
+            this.mouseSpeed = oldPosition.addCpy(currentPosition.SclCpy(-1));
+
 
         } else {
 
@@ -89,8 +91,6 @@ public class ColleDisplay {
                 } else if (mouseSpeed.x - SWIPE_STRIGGER*this.position.x/(Gdx.graphics.getWidth()/2.0f) < -SWIPE_STRIGGER) {
                     this.action = Action.RIGHT;
                     this.mouseSpeed.x = -SWIPE_STRIGGER;
-
-
                 }
 
             }
@@ -101,7 +101,7 @@ public class ColleDisplay {
 
         //mise à jour de la position
         if (touching) {
-            this.position.x -= mouseSpeed.x;
+            this.position.x = this.position.x - mouseSpeed.x;
         } else {
             //rapprochement du centre
             this.position.x -= this.position.x*SWIPE_SPEED*Gdx.graphics.getDeltaTime();
@@ -118,13 +118,14 @@ public class ColleDisplay {
     }
 
     public void render(SpriteBatch b, Colles CollesToDisplay, int week, int groupNumber, String groupMembers, Vector2 offset, float scale, Color boxColor, float boxPadding, float boxRadius) {
+        position.y = -0.001f*scale*Math.abs(offset.x+ position.x);
         if (CollesToDisplay != null) {
             displayColles(b, CollesToDisplay, groupNumber, groupMembers, offset, scale, boxColor, boxPadding, boxRadius);
         } else {
             text.drawText(b, font, "pas de colles trouvées", offset.addCpy(position), Anchor.CENTER, Anchor.CENTER, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
 
         }
-        text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.addCpy(position).x, scale), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
+        text.drawText(b, font, "semaine du " + formatWeek(week), new Vector2(offset.x + position.x, scale+ position.y), Anchor.CENTER, Anchor.TOP, boxColor, boxPadding, boxRadius, Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor);
         text.drawTextButStretched(b, font, "groupe n°" + groupNumber + ": " + groupMembers, new Vector2(0, scale*1.5f), Anchor.CENTER, Anchor.BOTTOM, boxColor, boxPadding, boxRadius, new Rect(new Vector2(0, 0), new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight())),Colors.smallBoxBorderWidth*scale, Colors.boxBorderColor,  Gdx.graphics.getWidth()-2*boxPadding);
     }
 
@@ -172,7 +173,7 @@ public class ColleDisplay {
                             "%s",
                     CollesToDisplay.colles.get(i).matiere, CollesToDisplay.colles.get(i).creneau, CollesToDisplay.colles.get(i).salle, CollesToDisplay.colles.get(i).nom);
 
-            renderPosition.y = (i + 0.5f - CollesToDisplay.amount / 2f) * scale * 5.7f;
+            renderPosition.y = position.y + (i + 0.5f - CollesToDisplay.amount / 2f) * scale * 5.7f;
 
             Rect r = text.drawText(b, font, txt, renderPosition, Anchor.CENTER, Anchor.CENTER, boxColor, 0, boxRadius, 0, Color.CLEAR);
             r.addPaddingX(scale);

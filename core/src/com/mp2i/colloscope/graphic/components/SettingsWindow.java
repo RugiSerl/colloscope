@@ -38,13 +38,20 @@ public class SettingsWindow extends Window {
     public void update(SpriteBatch batch, BitmapFont titleFont) {
         super.update(batch, titleFont);
 
-        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(scale*1, scale * 6.5f), Anchor.LEFT, Anchor.TOP, Colors.boxColor, scale / 2, scale / 2, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
-        text.drawText(batch, titleFont, "Colloscope "+ metadata.COLLOSCOPE_VERSION, new Vector2(scale*1, scale), Anchor.LEFT, Anchor.BOTTOM, Colors.boxColor, scale / 2, scale / 2, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
-        text.drawText(batch, titleFont, "" + groupNumber[0], new Vector2(scale*3.3f, scale * 6.5f), Anchor.RIGHT, Anchor.TOP, Colors.boxColor, scale / 2, scale / 2, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
+        text.drawText(batch, titleFont, "numéro du groupe", new Vector2(scale*1, scale * 6.5f), Anchor.LEFT, Anchor.TOP, Colors.boxColor, scale / 2, boxRadius, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
+        text.drawText(batch, titleFont, "Colloscope "+ metadata.COLLOSCOPE_VERSION, new Vector2(scale*1, scale), Anchor.LEFT, Anchor.BOTTOM, Colors.boxColor, scale / 2, boxRadius, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
+        text.drawText(batch, titleFont, "" + groupNumber[0], new Vector2(scale*3.3f, scale * 6.5f), Anchor.RIGHT, Anchor.TOP, Colors.boxColor, scale / 2, boxRadius, super.getRect(), Colors.smallBoxBorderWidth*scale, Colors.shadowColor);
 
         nextGroup.update(batch, super.getRect());
         previousGroup.update(batch, super.getRect());
         refreshNewVersion.update(batch, super.getRect());
+
+
+    }
+
+    public void updateInput() {
+        super.updateInput();
+
 
         if (nextGroup.isClicked()) {
             groupNumber[0] += 1;
@@ -60,10 +67,7 @@ public class SettingsWindow extends Window {
             groupNumber[0] = 16;
         }
 
-
     }
-
-
     @Override
     public void dispose() {
         super.dispose();

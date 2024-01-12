@@ -48,6 +48,12 @@ public class Vector2 {
     public Vector2 addCpy(Vector2 otherVector) {
         return new Vector2(otherVector.x + this.x, otherVector.y + this.y);
     }
+    public Vector2 SclCpy(float value) {
+        return new Vector2(this.x*value, this.y*value);
+    }
 
-
+    @Override
+    public String toString() {
+        return "("+this.x + ", " + this.y + ")";
+    }
 }

@@ -96,13 +96,13 @@ public class UserInterface {
     private void checkForUpdates() {
         try {
             if (!internet.IsLastVersion()) {
-                this.networkInfoWindow = new NetworkInfoWindow("La version n'est pas à jour", boxRadius, boxPadding, scale );
+                this.networkInfoWindow = new NetworkInfoWindow("La version n'est pas à jour", boxPadding, boxRadius, scale );
             } else {
-                this.networkInfoWindow = new NetworkInfoWindow("La version est pas à jour", boxRadius, boxPadding, scale );
+                this.networkInfoWindow = new NetworkInfoWindow("La version est pas à jour", boxPadding, boxRadius, scale );
 
             }
         } catch (Exception e) {
-            this.networkInfoWindow = new NetworkInfoWindow("impossible de vérifier la version", boxRadius, boxPadding, scale );
+            this.networkInfoWindow = new NetworkInfoWindow("impossible de vérifier la version", boxPadding, boxRadius, scale );
         }
     }
 
@@ -153,11 +153,11 @@ public class UserInterface {
 
         boxColor = Colors.boxColor;
         this.boxPadding = scale / 1.5f;
-        this.boxRadius = scale / 2;
+        this.boxRadius = scale / 5;
         this.groupPosition = new Vector2(this.boxPadding*2, this.boxPadding);
 
         if (this.settingsWindow != null ) this.settingsWindow = new SettingsWindow(groupNumber, scale, boxRadius, boxPadding, refreshRequested );
-        if (this.networkInfoWindow != null ) this.networkInfoWindow = new NetworkInfoWindow(this.networkInfoWindow.messageText, boxRadius, boxPadding, scale );
+        if (this.networkInfoWindow != null ) this.networkInfoWindow = new NetworkInfoWindow(this.networkInfoWindow.messageText, boxPadding, boxRadius, scale );
         if (this.disclaimerWindow != null ) disclaimerWindow = new DisclaimerWindow(boxPadding, boxRadius, scale);
 
 
@@ -247,6 +247,20 @@ public class UserInterface {
 
     //update all the windows of the interface
     private void updateWindows(SpriteBatch batch) {
+
+        //start by updating input in order
+        //the order of input() is the opposite of render()
+        if (this.networkInfoWindow != null) {
+            this.networkInfoWindow.updateInput();
+        }
+
+
+        if (this.settingsWindow != null) {
+            this.settingsWindow.updateInput();
+        }
+
+
+        //render the windows
         if (this.settingsWindow != null) {
             this.settingsWindow.update(batch, font);
 

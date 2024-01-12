@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class internet {
 
     public static boolean IsLastVersion() throws Exception {
+/*
 
         HttpURLConnection httpcon = (HttpURLConnection) new URL("https://api.github.com/repos/RugiSerl/colloscope/releases").openConnection();
         httpcon.addRequestProperty("User-Agent", "Mozilla/5.0");
@@ -32,8 +33,10 @@ public class internet {
         //trim end
         lastVersion = lastVersion.substring(0, lastVersion.indexOf(",")-1);
 
-        return (lastVersion.equals(metadata.APP_VERSION));
 
+        return (lastVersion.equals(metadata.APP_VERSION));
+*/
+        return false;
 
 
 

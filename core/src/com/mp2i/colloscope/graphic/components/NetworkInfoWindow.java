@@ -18,6 +18,7 @@ public class NetworkInfoWindow extends Window {
         super("Information", new Vector2(), new Vector2(scale * 13), boxPadding, boxRadius, scale);
         this.messageText = text;
         this.scale = scale;
+
         github = new Button("github.png", new Vector2(), scale, Anchor.RIGHT, Anchor.BOTTOM);
 
 
@@ -30,15 +31,16 @@ public class NetworkInfoWindow extends Window {
             text.drawText(batch, titleFont, "télécharger :", new Vector2(scale*2, scale*2), Anchor.LEFT, Anchor.BOTTOM,  Color.CLEAR, scale/2, scale/2, super.getRect(), 0, Color.CLEAR);
             github.update(batch, super.getRect());
 
-            if (github.isClicked()) {
-                Gdx.net.openURI("https://github.com/RugiSerl/colloscope/releases/latest");
-            }
+
         }
-
-
 
     }
 
-
+    public void updateInput() {
+        super.updateInput();
+        if (github.isClicked()) {
+            Gdx.net.openURI("https://github.com/RugiSerl/colloscope/releases/latest");
+        }
+    }
 
 }

@@ -17,6 +17,7 @@ public class Button extends Rect {
     private final Anchor verticalAnchor;
     private final myTexture texture;
     private float scale;
+    private static long frameID;
 
 
 
@@ -32,12 +33,27 @@ public class Button extends Rect {
         this.texture = new myTexture(texturePath);
         this.lastClicked = -1;
         this.scale = scale;
+        this.frameID = 0;
 
 
     }
 
     public void update(SpriteBatch batch, Rect containingRect) {
-        this.handleInput(batch);
+
+
+        //prevent multiple button input on the same frame
+        if (frameID != Gdx.graphics.getFrameId()) {
+            this.handleInput();
+            if (this.clicked) {
+                //no other updates in the frame
+                System.out.println("yes - " + this.texture.toString());
+                frameID = Gdx.graphics.getFrameId();
+            }
+        } else {
+            handleInput();
+            System.out.println(this.texture.toString());
+
+        }
         super.setToAnchor(this.pos, this.horizontalAnchor, this.verticalAnchor, containingRect);
         Rect temp = super.Copy();
 
@@ -65,7 +81,7 @@ public class Button extends Rect {
 
 
 
-    public void handleInput(SpriteBatch batch) {
+    public void handleInput() {
         this.clicked = Gdx.input.justTouched() && super.detectPointCollision(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
 
         if (this.clicked) {

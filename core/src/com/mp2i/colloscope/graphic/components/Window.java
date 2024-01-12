@@ -45,12 +45,16 @@ public class Window extends Rect {
 
         exitButton.update(batch, r);
 
-        if (exitButton.isClicked()) {
-            this.hidden = true;
-        }
+
 
         text.drawText(batch, titleFont, this.title, new Vector2(), Anchor.LEFT, Anchor.TOP, Color.CLEAR, 0, 0, r, 0, Color.CLEAR);
 
+    }
+
+    public void updateInput() {
+        if (exitButton.isClicked()) {
+            this.hidden = true;
+        }
     }
 
     public Rect getRect() {
