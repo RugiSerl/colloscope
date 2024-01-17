@@ -32,8 +32,8 @@ public class DisclaimerWindow extends Window {
         this.scale = scale;
     }
 
-    public void update(SpriteBatch batch, BitmapFont font) {
-        super.update(batch, font);
+    public void render(SpriteBatch batch, BitmapFont font) {
+        super.render(batch, font);
         super.updateInput();
 
 

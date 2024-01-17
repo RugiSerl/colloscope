@@ -4,7 +4,6 @@ TODO list des trucs à faire
 
 peut-être:
 -créer un écran de chargement lorsque le fichier se charge -> besoin de multithreading, pas pour le moment
--gérer le cas ou les bouttons sont les uns sur les autres
 -faire un build signé
 -mettre les informations en cache et les recharger à la demande
 
@@ -12,6 +11,7 @@ peut-être:
 
 
 fait:
+-gérer le cas ou les bouttons sont les uns sur les autres
 -fix le nom du groupe qui rentre pas
 -rendre l'application plus intuitive
 -polir l'interface (elle est immonde)

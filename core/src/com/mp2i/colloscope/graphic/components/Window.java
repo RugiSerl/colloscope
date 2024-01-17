@@ -34,7 +34,13 @@ public class Window extends Rect {
 
     }
 
+
+
     public void update(SpriteBatch batch, BitmapFont titleFont) {
+        render(batch, titleFont);
+        updateInput();
+    }
+    public void render(SpriteBatch batch, BitmapFont titleFont) {
 
         Rect r = this.getRect();
         //there's a bug with rounded rectangles but I'm just to lazy to correct it
@@ -43,7 +49,7 @@ public class Window extends Rect {
         r.position.y -= r.size.y;
 
 
-        exitButton.update(batch, r);
+        exitButton.render(batch, r);
 
 
 
@@ -52,10 +58,15 @@ public class Window extends Rect {
     }
 
     public void updateInput() {
+        exitButton.handleInput();
+
         if (exitButton.isClicked()) {
             this.hidden = true;
         }
     }
+
+
+
 
     public Rect getRect() {
         // explicitly making copy

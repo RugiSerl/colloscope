@@ -11,6 +11,7 @@ import com.mp2i.colloscope.graphic.components.ColleDisplay;
 import com.mp2i.colloscope.graphic.components.Colors;
 import com.mp2i.colloscope.graphic.components.DisclaimerWindow;
 import com.mp2i.colloscope.graphic.components.NetworkInfoWindow;
+import com.mp2i.colloscope.graphic.components.Window;
 import com.mp2i.colloscope.graphic.utils.Anchor;
 import com.mp2i.colloscope.graphic.components.Button;
 import com.mp2i.colloscope.graphic.components.SettingsWindow;
@@ -245,47 +246,44 @@ public class UserInterface {
 
     }
 
+    public void renderWindows(Window window, SpriteBatch batch) {
+        if (window != null) {
+            window.render(batch, font);
+
+        }
+    }
+
+    //returning Window to return null if the windows is closed
+    public Window updateInputWindows(Window window) {
+        if (window != null) {
+            window.updateInput();
+            if (window.hidden) {
+                window = null; // delete window
+            }
+        }
+        return window;
+    }
+
     //update all the windows of the interface
     private void updateWindows(SpriteBatch batch) {
 
         //start by updating input in order
         //the order of input() is the opposite of render()
-        if (this.networkInfoWindow != null) {
-            this.networkInfoWindow.updateInput();
-        }
-
-
-        if (this.settingsWindow != null) {
-            this.settingsWindow.updateInput();
-        }
-
+        this.networkInfoWindow = (NetworkInfoWindow) updateInputWindows(this.networkInfoWindow);
+        this.settingsWindow = (SettingsWindow) updateInputWindows(this.settingsWindow);
 
         //render the windows
-        if (this.settingsWindow != null) {
-            this.settingsWindow.update(batch, font);
+        renderWindows(this.disclaimerWindow, batch);
+        renderWindows(this.settingsWindow, batch);
+        renderWindows(this.networkInfoWindow, batch);
 
+        //Check something
+        if (settingsWindow != null) {
             if (this.settingsWindow.refreshNewVersion.isClicked()) {
                 this.checkForUpdates();
             }
-
-            if (this.settingsWindow.hidden) {
-                this.settingsWindow = null;
-            }
         }
 
-        if (this.networkInfoWindow != null) {
-            this.networkInfoWindow.update(batch, font);
-            if (this.networkInfoWindow.hidden) {
-                this.networkInfoWindow = null;
-            }
-        }
-
-        if (this.disclaimerWindow != null) {
-            this.disclaimerWindow.update(batch, font);
-            if (this.disclaimerWindow.hidden) {
-                this.disclaimerWindow = null;
-            }
-        }
     }
 
     private void displayColles(SpriteBatch batch) {
