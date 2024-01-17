@@ -17,6 +17,7 @@ Vous pouvez également proposer des suggestions dans l'onglet issue pour amélio
 ### Contributeurs :
 -Raphaël (moi) : code
 -Nolhan : conception du design
+-Gaëtan : formulation du disclaimer
 
 
 ### Installation :

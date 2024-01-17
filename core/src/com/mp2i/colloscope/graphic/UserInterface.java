@@ -99,7 +99,7 @@ public class UserInterface {
             if (!internet.IsLastVersion()) {
                 this.networkInfoWindow = new NetworkInfoWindow("La version n'est pas à jour", boxPadding, boxRadius, scale );
             } else {
-                this.networkInfoWindow = new NetworkInfoWindow("La version est pas à jour", boxPadding, boxRadius, scale );
+                this.networkInfoWindow = new NetworkInfoWindow("La version est à jour", boxPadding, boxRadius, scale );
 
             }
         } catch (Exception e) {
@@ -271,6 +271,7 @@ public class UserInterface {
         //the order of input() is the opposite of render()
         this.networkInfoWindow = (NetworkInfoWindow) updateInputWindows(this.networkInfoWindow);
         this.settingsWindow = (SettingsWindow) updateInputWindows(this.settingsWindow);
+        this.disclaimerWindow = (DisclaimerWindow) updateInputWindows(this.disclaimerWindow);
 
         //render the windows
         renderWindows(this.disclaimerWindow, batch);
