@@ -112,7 +112,10 @@ public class excelFileReader {
                 if (dateCellValue.getMonth() == monthNumber && dateCellValue.getDate() == numberOfTheMonth) {
                     Row row = sheet.getRow(DATE_ROW_OFFSET + 1 + groupNumber);
                     Cell cell = row.getCell(dateColumn);
-                    return new Colles(cell);
+
+                    int colleNb = (int) sheet.getRow(DATE_ROW_OFFSET + 1).getCell(dateColumn).getNumericCellValue();
+
+                    return new Colles(cell, colleNb);
                 }
             }
             dateColumn++;
